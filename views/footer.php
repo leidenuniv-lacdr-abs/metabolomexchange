@@ -38,7 +38,8 @@
                             <li><a href="mailto:?subject=MetabolomeXchange&body='.$socialSiteDescription.': http%3A%2F%2Fmetabolomexchange.org" target="_blank" title="Email" onclick="window.open(\'mailto:?subject=\' + encodeURIComponent(document.title) + \'&body=\' +  encodeURIComponent(document.URL)); return false;"><img src="/img/flat_web_icon_set/black/Email.png"></a></li>
                         </ul>';
                 ?>                
-                <p><img src="/img/cosmos/fp7.png"> This project is funded through European Commission COSMOS Grant EC312941</p>                                
+                <p><img src="/img/cosmos/fp7.png"> This project is funded through European Commission COSMOS Grant EC312941</p>
+                <p><!--BUILD--></p>
             </footer>
         </div>
 
