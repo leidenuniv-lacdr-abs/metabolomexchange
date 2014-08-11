@@ -13,14 +13,14 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Metabolomexchange by leidenuniv-lacdr-abs</title>
+    <title>MetabolomeXchange by leidenuniv-lacdr-abs</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Metabolomexchange</h1>
-        <h2>Source code of the site MetabolomeXchange.org</h2>
+        <h1>MetabolomeXchange</h1>
+        <h2>Connecting metabolomics repositories!</h2>
         <a href="https://github.com/leidenuniv-lacdr-abs/metabolomexchange" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -29,36 +29,55 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+            <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>MetabolomeXchange
+          </h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+          <ul>
+            <li><a href="#authors-and-contributors">Authors and Contributors</a></li>            
+            <li><a href="#getting-started">Getting started!</a></li>            
+            <!--<li><a href="#faq">FAQ</a></li>-->
+            <li><a href="#support-or-contact">Support or Contact</a></li>
+          </ul>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+          <p>
+            October 2012 marked the launch of a global effort to enable free and open sharing of metabolomics data. Coordinated by EMBL-European Bioinformatics Institute, <a target="_blank" href="http://www.cosmos-fp7.eu/">COSMOS (Coordination of Standards in Metabolomics)</a> has brought together European metabolomics data providers to set and promote community standards.
+          </p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+          <p>
+            As part of WP5 <a target="_blank" href="http://metabolomexchange.org">MetabolomeXchange.org</a> was setup. 
+            The initial release was early june 2014 and the formal introduction was during the 2014 Metabolomics conference.
+            <a target="_blank" href="http://metabolomexchange.org">MetabolomeXchange.org</a> delivers the mechanisms needed for disseminating the metabolomics data that are being shared within the COSMOS consortium to the metabolomics community at large (both metabolomics researchers and databases). The main objective is to make it easier for metabolomics researchers to become aware of newly released, publicly available, metabolomics datasets that may be useful for their research.
+          </p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<ul>
+  <li>Thomas Hankemeier</li>
+  <li>Christoph Steinbeck</li>
+  <li>Reza Salek</li>
+  <li>Kenneth Haug</li>
+  <li>Steffen Neumann (<a target="_blank" href="https://github.com/sneumann/" class="user-mention">@sneumann</a>)</li>
+  <li>Michael van Vliet (<a target="_blank" href="https://github.com/michaelvanvliet" class="user-mention">@michaelvanvliet</a>)</li>
+</ul>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h3>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started!</h3>
+<p>This section is when you want to run your own copy of <a target="_blank" href="http://metabolomexchange.org">MetabolomeXchange.org</a>, if you want to become a data provider please contact us at <a href="mailto:join@metabolomexchange.org">join@metabolomexchange.org</a>.</p>
 
+<p>To run the site you need a webserver capable of running <a target="_blank" href="http://www.php.net">PHP</a> (like <a target="_blank" href="https://httpd.apache.org/">Apache 2.x</a>) and <a target="_blank" href="http://www.mongodb.org/">MongoDB</a>.</p>
+<p>When installed you only need to adjust the <a href="https://github.com/leidenuniv-lacdr-abs/metabolomexchange/blob/master/classes/Config.php">/classes/Config.php</a> accordingly. When it detects an empty database it will bootstrap it with the providers.json found in the config, or the default providers.json in the root, and fetch the current publicly available datasets.</p>
+
+<!--<h3>
+<a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h3>
+-->
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Having trouble, check out the faq at below or contact <a href="mailto:support@metabolomexchange.org">support@metabolomexchange.org</a> and we’ll help you sort it out.</p>
+<p style="min-height:1000px;">&nbsp;</p>
+
+
         </section>
 
         <aside id="sidebar">
