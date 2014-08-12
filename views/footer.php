@@ -39,8 +39,8 @@
                         </ul>';
                 ?>                
                 <p><img src="/img/cosmos/fp7.png"> This project is funded through European Commission COSMOS Grant EC312941</p>
-                <p><!--BUILD--></p>
             </footer>
+            <p style="text-align:center; color: #cdcdcd;"><a target="_blank" href="http://leidenuniv-lacdr-abs.github.io/metabolomexchange/"><!--BUILD--><a/></p>            
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -64,6 +64,6 @@
             $(function () {
               $('#tc a').tagcloud();
             });
-        </script>            
+        </script>
     </body>
 </html>
