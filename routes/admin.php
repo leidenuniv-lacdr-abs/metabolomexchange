@@ -136,8 +136,10 @@ Flight::route('GET /summary', function(){
 	foreach ($datasets as $idx => $dataset){
 		$summary = getPropertyCount($summary, $dataset); print '</pre>';
 	}
-	ksort($summary);
+	arsort($summary);
 	print '<pre>'; print_r($summary); print '</pre>';
+	ksort($summary);
+	print '<pre>'; print_r($summary); print '</pre>';	
 });
 
 ?>
