@@ -326,7 +326,7 @@ class Database {
 
         switch($respKey){
             
-            case 'provider_uuid':   $respArray = array("provider" => $this->filterResponse($this->find('providers', array('filter'=>array('uuid'=>$respVal)))));
+            case 'provider_uuid':   $respArray = current(array("provider" => $this->filterResponse($this->find('providers', array('filter'=>array('uuid'=>$respVal))))));
                                     break;
             
             default:                $respArray = array("$respKey" => $respVal);

@@ -103,4 +103,36 @@ Flight::route('GET /update/feeds', function(){
 	exit();
 });
 
+/**
+ * Summary of datasets
+ */
+Flight::route('GET /summary', function(){
+	$summary = array();
+	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
+	foreach ($datasets as $dsIdx => $dataset){
+		foreach ($dataset as $propertyKey => $propertyValue){
+			if (!isset($summary[$propertyKey])){ $summary[$propertyKey] = array(); } // init array
+			if (!is_array($propertyValue)){
+				if (!isset($summary[$propertyKey][$propertyValue])){ 
+					$summary[$propertyKey][$propertyValue] = 1; 
+				} else {
+					$summary[$propertyKey][$propertyValue] = $summary[$propertyKey][$propertyValue] + 1;
+				}
+			} else {
+				// array block
+				foreach ($propertyValue as $subPropertyKey => $subPropertyValue){
+					if (!isset($summary[$propertyKey][$subPropertyKey])){ $summary[$propertyKey][$subPropertyKey] = array(); }					
+					@print $summary[$propertyKey][$subPropertyKey][$subPropertyValue];
+					if (@!isset($summary[$propertyKey][$subPropertyKey][$subPropertyValue])){ 
+						@$summary[$propertyKey][$subPropertyKey][$subPropertyValue] = 1; 
+					} else {
+						@$summary[$propertyKey][$subPropertyKey][$subPropertyValue] = $summary[$propertyKey][$subPropertyKey][$subPropertyValue] + 1;
+					}					
+				}
+			}
+		}
+	}
+	print '<pre>'; print_r($summary); print '</pre>';
+});
+
 ?>
