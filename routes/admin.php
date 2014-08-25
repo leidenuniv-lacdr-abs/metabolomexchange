@@ -121,8 +121,7 @@ Flight::route('GET /summary', function(){
 			} else {
 				// array block
 				foreach ($propertyValue as $subPropertyKey => $subPropertyValue){
-					if (!isset($summary[$propertyKey][$subPropertyKey])){ $summary[$propertyKey][$subPropertyKey] = array(); }					
-					@print $summary[$propertyKey][$subPropertyKey][$subPropertyValue];
+					if (!isset($summary[$propertyKey][$subPropertyKey])){ $summary[$propertyKey][$subPropertyKey] = array(); }
 					if (@!isset($summary[$propertyKey][$subPropertyKey][$subPropertyValue])){ 
 						@$summary[$propertyKey][$subPropertyKey][$subPropertyValue] = 1; 
 					} else {
