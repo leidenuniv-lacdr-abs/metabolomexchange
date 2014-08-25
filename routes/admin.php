@@ -109,28 +109,34 @@ Flight::route('GET /update/feeds', function(){
 Flight::route('GET /summary', function(){
 	$summary = array();
 	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
-	foreach ($datasets as $dsIdx => $dataset){
-		foreach ($dataset as $propertyKey => $propertyValue){
-			if (!isset($summary[$propertyKey])){ $summary[$propertyKey] = array(); } // init array
+	//print '<pre>'; print_r($datasets); print '</pre>';	
+
+	function getPropertyCount(&$propertyCount, $properties, $parent = ''){
+
+		foreach (array_keys($properties) as $propertyKey){
+			$propertyValue = $properties[$propertyKey];
+			$newParent = $parent.'_'.$propertyKey;
+			
+			if (is_integer($propertyKey)){ $newParent = $parent; }
+
 			if (!is_array($propertyValue)){
-				if (!isset($summary[$propertyKey][$propertyValue])){ 
-					$summary[$propertyKey][$propertyValue] = 1; 
-				} else {
-					$summary[$propertyKey][$propertyValue] = $summary[$propertyKey][$propertyValue] + 1;
-				}
+				$newParent = $newParent.'_'. $properties[$propertyKey];
+				if (!isset($propertyCount[$newParent])){ $propertyCount[$newParent] = 0; }
+				$propertyCount[$newParent] = $propertyCount[$newParent] + 1;
 			} else {
-				// array block
-				foreach ($propertyValue as $subPropertyKey => $subPropertyValue){
-					if (!isset($summary[$propertyKey][$subPropertyKey])){ $summary[$propertyKey][$subPropertyKey] = array(); }
-					if (@!isset($summary[$propertyKey][$subPropertyKey][$subPropertyValue])){ 
-						@$summary[$propertyKey][$subPropertyKey][$subPropertyValue] = 1; 
-					} else {
-						@$summary[$propertyKey][$subPropertyKey][$subPropertyValue] = $summary[$propertyKey][$subPropertyKey][$subPropertyValue] + 1;
-					}					
-				}
+				$propertyCount = getPropertyCount($propertyCount, $propertyValue, $newParent);
 			}
 		}
+
+		return $propertyCount;
 	}
+
+
+	//getPropertyCount(array_values($datasets));
+	foreach ($datasets as $idx => $dataset){
+		$summary = getPropertyCount($summary, $dataset); print '</pre>';
+	}
+	ksort($summary);
 	print '<pre>'; print_r($summary); print '</pre>';
 });
 
