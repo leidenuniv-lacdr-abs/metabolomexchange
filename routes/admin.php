@@ -148,6 +148,8 @@ Flight::route('GET /summary', function(){
 
 Flight::route('GET /ns/dcat', function(){
 
+	header("Content-Type:text/plain");
+
 	// some handy functions
 	function datasetUrlFromDataset($dataset){
 		return "http://metabolomexchange.org/dataset/provider/".urlencode($dataset['provider']['name'])."/accession/".urlencode($dataset['accession']);
