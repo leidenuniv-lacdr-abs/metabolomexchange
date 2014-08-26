@@ -142,4 +142,59 @@ Flight::route('GET /summary', function(){
 	print '<pre>'; print_r($summary); print '</pre>';	
 });
 
+/**
+ * DCAT endpoint
+ */
+
+Flight::route('GET /ns/dcat', function(){
+
+	// some handy functions
+	function datasetUrlFromDataset($dataset){
+		return "http://metabolomexchange.org/dataset/provider/".urlencode($dataset['provider']['name'])."/accession/".urlencode($dataset['accession']);
+	}	
+
+	$mxDCAT = '';
+
+	// add prefixes
+	$mxDCAT .= "@prefix dc: <http://purl.org/dc/terms/> .\n";
+	$mxDCAT .= "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
+	$mxDCAT .= "@prefix dcat: <http://www.w3.org/ns/dcat#> .\n";
+
+	// add dcat url
+	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n";
+
+	// add date modified
+	$mxDCAT .= "\tdc:modified \"2014-07-01T12:19:18+0000\" ;\n";
+
+	// add homepage metabolomexchange
+	$mxDCAT .= "\tfoaf:homepage \"http://metabolomexchange.org\" ;\n";
+
+	// add datasets as reference list
+	$mxDCAT .= "\tdcat:dataset ";
+
+	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
+
+	// add references in top of DCAT
+	$mxDCATDatasets = array();
+	foreach ($datasets as $idx => $dataset){
+		$mxDCATDatasets[] = "<".datasetUrlFromDataset($dataset).">";
+	}
+	$mxDCAT .= implode(', ', array_values($mxDCATDatasets)) . "\n";
+
+	// add the individual datasets
+	foreach ($datasets as $idx => $dataset){
+		$mxDCAT .= "\n<".datasetUrlFromDataset($dataset).">
+						a dcat:Dataset ;
+						dc:description \"".stripslashes(htmlentities($dataset['description']))."\".\" ;
+						dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
+						dc:issued \"".date("Y-M-d", $dataset['date'])."T12:00:00+0000\" ;
+		  				dc:source <".$dataset['url']."> ;
+		  				dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n";
+	}
+
+
+	echo trim($mxDCAT);
+
+});
+
 ?>
