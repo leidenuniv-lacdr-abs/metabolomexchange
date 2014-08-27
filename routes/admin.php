@@ -107,39 +107,10 @@ Flight::route('GET /update/feeds', function(){
  * Summary of datasets
  */
 Flight::route('GET /summary', function(){
-	$summary = array();
-	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
-	//print '<pre>'; print_r($datasets); print '</pre>';	
-
-	function getPropertyCount(&$propertyCount, $properties, $parent = ''){
-
-		foreach (array_keys($properties) as $propertyKey){
-			$propertyValue = $properties[$propertyKey];
-			$newParent = $parent.'_'.$propertyKey;
-			
-			if (is_integer($propertyKey)){ $newParent = $parent; }
-
-			if (!is_array($propertyValue)){
-				$newParent = $newParent.'_'. $properties[$propertyKey];
-				if (!isset($propertyCount[$newParent])){ $propertyCount[$newParent] = 0; }
-				$propertyCount[$newParent] = $propertyCount[$newParent] + 1;
-			} else {
-				$propertyCount = getPropertyCount($propertyCount, $propertyValue, $newParent);
-			}
-		}
-
-		return $propertyCount;
-	}
-
-
-	//getPropertyCount(array_values($datasets));
-	foreach ($datasets as $idx => $dataset){
-		$summary = getPropertyCount($summary, $dataset); print '</pre>';
-	}
-	arsort($summary);
-	print '<pre>'; print_r($summary); print '</pre>';
-	ksort($summary);
-	print '<pre>'; print_r($summary); print '</pre>';	
+	Flight::render('summary.php', array(
+		'datasets' => Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params'))),
+		'providers' => Flight::get('providers')
+	));
 });
 
 /**
@@ -147,56 +118,10 @@ Flight::route('GET /summary', function(){
  */
 
 Flight::route('GET /ns/dcat', function(){
-
-	header("Content-Type:text/plain; charset=utf-8");
-
-	// some handy functions
-	function datasetUrlFromDataset($dataset){
-		return urlencode($dataset['provider']['abbreviation']).":".urlencode($dataset['accession']);
-	}	
-
-	$mxDCAT = '';
-
-	// add prefixes
-	$mxDCAT .= "@prefix dc: <http://purl.org/dc/terms/> .\n";
-	$mxDCAT .= "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
-	$mxDCAT .= "@prefix dcat: <http://www.w3.org/ns/dcat#> .\n";
-	$mxDCAT .= "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n";
-
-	// add provider prefixes
-	$providers = Flight::get('providers');
-	foreach ($providers as $pIdx => $provider){
-		$mxDCAT .= "@prefix ".$provider['abbreviation'].": <http://".$_SERVER['HTTP_HOST']."/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
-	}
-
-	$mxDCAT .= "\n<http://".$_SERVER['HTTP_HOST']."/ns/dcat>\n"; // add dcat url
-	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n"; // add date modified
-	$mxDCAT .= "\tfoaf:homepage \"<http://".$_SERVER['HTTP_HOST'].">\" ;\n"; // add homepage metabolomexchange
-
-	// add datasets as reference list
-	$mxDCAT .= "\tdcat:dataset ";
-	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
-	$mxDCATDatasets = array();
-	foreach ($datasets as $idx => $dataset){
-		$mxDCATDatasets[] = datasetUrlFromDataset($dataset);
-	}
-	$mxDCAT .= implode(', ', array_values($mxDCATDatasets)) . " .\n";
-
-	// add the individual datasets
-	foreach ($datasets as $idx => $dataset){
-		$mxDCAT .= "\n".datasetUrlFromDataset($dataset)."
-			a dcat:Dataset ;
-			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
-			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
-			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
-			dc:landingPage <".$dataset['url']."> ;
-			dc:source \"".stripslashes($dataset['provider']['name'])."\" ;
-			dc:title \"".stripslashes($dataset['title'])."\" .\n
-		";
-	}
-
-	echo trim($mxDCAT);
-
+	Flight::render('dcat.php', array(
+		'datasets' => Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params'))),
+		'providers' => Flight::get('providers')
+	));
 });
 
 ?>
