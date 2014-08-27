@@ -354,7 +354,7 @@ class Database {
 		if (count($providers)){
 			foreach($providers as $pIdx => $provider){
 
-				$providerArray = array('active'=>1,'url'=>$provider->url,'name'=>$provider->name,'about'=>$provider->about,'feed_url'=>$provider->feed_url);
+				$providerArray = array('active'=>1,'abbreviation'=>$provider->abbreviation ,'url'=>$provider->url,'name'=>$provider->name,'about'=>$provider->about,'feed_url'=>$provider->feed_url);
 
 				// see if it is already in there!
 				$existingProvider = $this->find('providers', array('filter'=>array("name"=>$provider->name)));

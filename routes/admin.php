@@ -152,7 +152,7 @@ Flight::route('GET /ns/dcat', function(){
 
 	// some handy functions
 	function datasetUrlFromDataset($dataset){
-		return "http://metabolomexchange.org/dataset/provider/".urlencode($dataset['provider']['name'])."/accession/".urlencode($dataset['accession']);
+		return urlencode($dataset['provider']['abbreviation']).":".urlencode($dataset['accession']);
 	}	
 
 	$mxDCAT = '';
@@ -161,39 +161,38 @@ Flight::route('GET /ns/dcat', function(){
 	$mxDCAT .= "@prefix dc: <http://purl.org/dc/terms/> .\n";
 	$mxDCAT .= "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
 	$mxDCAT .= "@prefix dcat: <http://www.w3.org/ns/dcat#> .\n";
+	$mxDCAT .= "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n";
 
-	// add dcat url
-	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n";
+	// add provider prefixes
+	$providers = Flight::get('providers');
+	foreach ($providers as $pIdx => $provider){
+		$mxDCAT .= "@prefix ".$provider['abbreviation'].": <http://metabolomexchange.org/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
+	}
 
-	// add date modified
-	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n";
-
-	// add homepage metabolomexchange
-	$mxDCAT .= "\tfoaf:homepage \"<http://metabolomexchange.org>\" ;\n";
+	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n"; // add dcat url
+	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n"; // add date modified
+	$mxDCAT .= "\tfoaf:homepage \"<http://metabolomexchange.org>\" ;\n"; // add homepage metabolomexchange
 
 	// add datasets as reference list
 	$mxDCAT .= "\tdcat:dataset ";
-
 	$datasets = Flight::get('database')->filterResponse(Flight::get('database')->find('datasets', Flight::get('params')));
-
-	// add references in top of DCAT
 	$mxDCATDatasets = array();
 	foreach ($datasets as $idx => $dataset){
-		$mxDCATDatasets[] = "<".datasetUrlFromDataset($dataset).">";
+		$mxDCATDatasets[] = datasetUrlFromDataset($dataset);
 	}
 	$mxDCAT .= implode(', ', array_values($mxDCATDatasets)) . " .\n";
 
 	// add the individual datasets
 	foreach ($datasets as $idx => $dataset){
-		$mxDCAT .= "\n<".datasetUrlFromDataset($dataset).">
-						a dcat:Dataset ;
-						dc:description \"\"\"".stripslashes(htmlentities($dataset['description']))."\"\"\" ;
-						dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
-						dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
-		  				dc:source <".$dataset['url']."> ;
-		  				dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n";
+		$mxDCAT .= "\n".datasetUrlFromDataset($dataset)."
+			a dcat:Dataset ;
+			dc:description \"\"\"".stripslashes(htmlentities($dataset['description']))."\"\"\" ;
+			dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
+			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
+			dc:source <".$dataset['url']."> ;
+			dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n
+		";
 	}
-
 
 	echo trim($mxDCAT);
 

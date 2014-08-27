@@ -67,7 +67,7 @@
 							'examples'=> array(
 								array(
 									'title'=>'All datasets of a provider',
-									'command' => '/api/dataset/provider/Golm/?limit=4&sortby=created&sort=desc'
+									'command' => '/api/dataset/provider/Bordeaux/?limit=4&sortby=created&sort=desc'
 								)
 							)
 						),						
