@@ -186,11 +186,11 @@ Flight::route('GET /ns/dcat', function(){
 	foreach ($datasets as $idx => $dataset){
 		$mxDCAT .= "\n".datasetUrlFromDataset($dataset)."
 			a dcat:Dataset ;
-			dc:description \"\"\"".stripslashes(htmlentities($dataset['description']))."\"\"\" ;
+			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
 			dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
 			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
 			dc:source <".$dataset['url']."> ;
-			dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n
+			dc:title \"".stripslashes($dataset['title'])."\" .\n
 		";
 	}
 
