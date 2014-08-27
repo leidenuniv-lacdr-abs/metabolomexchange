@@ -166,10 +166,10 @@ Flight::route('GET /ns/dcat', function(){
 	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n";
 
 	// add date modified
-	$mxDCAT .= "\tdc:modified \"2014-07-01T12:19:18+0000\" ;\n";
+	$mxDCAT .= "\tdc:modified \"".date("Y-M-d")."^^xsd:date ;\n";
 
 	// add homepage metabolomexchange
-	$mxDCAT .= "\tfoaf:homepage \"http://metabolomexchange.org\" ;\n";
+	$mxDCAT .= "\tfoaf:homepage \"<http://metabolomexchange.org>\" ;\n";
 
 	// add datasets as reference list
 	$mxDCAT .= "\tdcat:dataset ";
@@ -181,15 +181,15 @@ Flight::route('GET /ns/dcat', function(){
 	foreach ($datasets as $idx => $dataset){
 		$mxDCATDatasets[] = "<".datasetUrlFromDataset($dataset).">";
 	}
-	$mxDCAT .= implode(', ', array_values($mxDCATDatasets)) . "\n";
+	$mxDCAT .= implode(', ', array_values($mxDCATDatasets)) . " .\n";
 
 	// add the individual datasets
 	foreach ($datasets as $idx => $dataset){
 		$mxDCAT .= "\n<".datasetUrlFromDataset($dataset).">
 						a dcat:Dataset ;
-						dc:description \"".stripslashes(htmlentities($dataset['description']))."\".\" ;
+						dc:description \"\"\"".stripslashes(htmlentities($dataset['description']))."\"\"\" ;
 						dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
-						dc:issued \"".date("Y-M-d", $dataset['date'])."T12:00:00+0000\" ;
+						dc:issued \"".date("Y-M-d", $dataset['date'])."^^xsd:date ;
 		  				dc:source <".$dataset['url']."> ;
 		  				dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n";
 	}
