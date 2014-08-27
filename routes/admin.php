@@ -166,7 +166,7 @@ Flight::route('GET /ns/dcat', function(){
 	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n";
 
 	// add date modified
-	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date ;\n";
+	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n";
 
 	// add homepage metabolomexchange
 	$mxDCAT .= "\tfoaf:homepage \"<http://metabolomexchange.org>\" ;\n";
@@ -189,7 +189,7 @@ Flight::route('GET /ns/dcat', function(){
 						a dcat:Dataset ;
 						dc:description \"\"\"".stripslashes(htmlentities($dataset['description']))."\"\"\" ;
 						dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
-						dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date ;
+						dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
 		  				dc:source <".$dataset['url']."> ;
 		  				dc:title \"".stripslashes(htmlentities($dataset['title']))."\" .\n";
 	}
