@@ -189,7 +189,8 @@ Flight::route('GET /ns/dcat', function(){
 			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
 			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
 			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
-			dc:source <".$dataset['url']."> ;
+			dc:landingPage <".$dataset['url']."> ;
+			dc:source \"".stripslashes($dataset['provider']['name'])."\" ;
 			dc:title \"".stripslashes($dataset['title'])."\" .\n
 		";
 	}
