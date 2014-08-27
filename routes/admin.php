@@ -148,7 +148,7 @@ Flight::route('GET /summary', function(){
 
 Flight::route('GET /ns/dcat', function(){
 
-	header("Content-Type:text/plain");
+	header("Content-Type:text/plain; charset=utf-8");
 
 	// some handy functions
 	function datasetUrlFromDataset($dataset){
