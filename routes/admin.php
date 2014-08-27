@@ -166,12 +166,12 @@ Flight::route('GET /ns/dcat', function(){
 	// add provider prefixes
 	$providers = Flight::get('providers');
 	foreach ($providers as $pIdx => $provider){
-		$mxDCAT .= "@prefix ".$provider['abbreviation'].": <http://metabolomexchange.org/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
+		$mxDCAT .= "@prefix ".$provider['abbreviation'].": <http://".$_SERVER['HTTP_HOST']."/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
 	}
 
-	$mxDCAT .= "\n<http://metabolomexchange.org/ns/dcat>\n"; // add dcat url
+	$mxDCAT .= "\n<http://".$_SERVER['HTTP_HOST']."/ns/dcat>\n"; // add dcat url
 	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n"; // add date modified
-	$mxDCAT .= "\tfoaf:homepage \"<http://metabolomexchange.org>\" ;\n"; // add homepage metabolomexchange
+	$mxDCAT .= "\tfoaf:homepage \"<http://".$_SERVER['HTTP_HOST'].">\" ;\n"; // add homepage metabolomexchange
 
 	// add datasets as reference list
 	$mxDCAT .= "\tdcat:dataset ";
@@ -187,7 +187,7 @@ Flight::route('GET /ns/dcat', function(){
 		$mxDCAT .= "\n".datasetUrlFromDataset($dataset)."
 			a dcat:Dataset ;
 			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
-			dc:identifier \"".str_replace('http://metabolomexchange.org/', '', datasetUrlFromDataset($dataset))."\" ;
+			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
 			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
 			dc:source <".$dataset['url']."> ;
 			dc:title \"".stripslashes($dataset['title'])."\" .\n
