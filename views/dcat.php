@@ -58,6 +58,7 @@
 			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
 			dc:landingPage <".$dataset['url']."> ;
 			dc:source \"".stripslashes($dataset['provider']['name'])."\" ;
+			foaf:name \"".stripslashes($dataset['submitter'])."\" ;
 			dc:title \"".stripslashes($dataset['title'])."\" .\n
 		";
 	}
