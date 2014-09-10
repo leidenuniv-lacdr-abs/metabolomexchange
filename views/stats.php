@@ -25,7 +25,7 @@
 	$cachedVersion = $cacheDir . '/stats.' . date("Ymd") . '.cache'; // refresh ones a day
 
 	// read or produce cached version of the documentation
-	if (1 != 2 || !is_readable($cachedVersion)){
+	if (!is_readable($cachedVersion)){
 
 		$providers = Flight::get('providers');
 
