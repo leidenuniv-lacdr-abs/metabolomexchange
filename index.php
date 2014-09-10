@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
  * (Leiden University)
