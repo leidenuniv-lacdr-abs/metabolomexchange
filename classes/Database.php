@@ -51,7 +51,7 @@ class Database {
 		$connectionAdminUrl	.= $this->config['mongodbHost'].':'.$this->config['mongodbPort'].'/'.$this->config['mongodbName'];
 		$connectionAdmin 	= new MongoClient($connectionAdminUrl);
 		$dbName				= $this->config['mongodbName'];		
-		$this->dbAdmin		= $connection->$dbName;			
+		$this->dbAdmin		= $connectionAdmin->$dbName;			
     }
 
 
