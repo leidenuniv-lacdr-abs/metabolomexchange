@@ -24,6 +24,10 @@
 	// cache file
 	$cachedVersion = $cacheDir . '/stats.' . date("Ymd") . '.cache'; // refresh ones a day
 
+	// number of years to display (back in time)
+	$yearsToDisplay = 5;
+	$oldestYearToDisplay = ((int) date("Y")) - $yearsToDisplay;
+
 	// read or produce cached version of the documentation
 	if (!is_readable($cachedVersion)){
 
@@ -39,6 +43,9 @@
 			$provider = $providers[$dataset['provider_uuid']];
 			$month = date("m", $dataset['date']);
 			$year = date("Y", $dataset['date']);
+			if ((int) $year < $oldestYearToDisplay){
+				$year = $oldestYearToDisplay;
+			}
 			$ym = $year . '-' . $month;
 
 			// record oldest date (Y)
@@ -58,7 +65,7 @@
 		$strYears = '';
 		$startYear = $minYear;
 		while($startYear < $maxYear){
-			if ($startYear > 2009){ // skipp the oldies
+			if ($startYear > $oldestYearToDisplay){ // skip the oldies
 				$strYears .= '"'.$startYear.'",';
 			}
 			$startYear++;
@@ -97,6 +104,16 @@
 		} catch (Exception $e) {
 			// was unable to cache this documents
 		}
+	} else {
+		// read years from cached file
+		$years = array();
+		foreach(file($cachedVersion) as $lIdx => $line){
+			$lineParts = explode("\t", $line);
+			if (((int) $lineParts[3]) > $oldestYearToDisplay){
+				$years[$lineParts[3]] = $lineParts[3];
+			}
+		}
+		$strYears = '"' . join('","', array_values($years)) . '"';
 	}		
 
 
