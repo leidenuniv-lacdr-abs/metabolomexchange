@@ -29,7 +29,7 @@
 	$oldestYearToDisplay = ((int) date("Y")) - ($yearsToDisplay-1);
 
 	// read or produce cached version of the documentation
-	if (1 == 1 || !is_readable($cachedVersion)){
+	if (!is_readable($cachedVersion)){
 
 		$providers = Flight::get('providers');
 
