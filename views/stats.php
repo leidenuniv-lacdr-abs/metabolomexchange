@@ -26,10 +26,10 @@
 
 	// number of years to display (back in time)
 	$yearsToDisplay = 5;
-	$oldestYearToDisplay = ((int) date("Y")) - $yearsToDisplay;
+	$oldestYearToDisplay = ((int) date("Y")) - ($yearsToDisplay-1);
 
 	// read or produce cached version of the documentation
-	if (!is_readable($cachedVersion)){
+	if (1 == 1 || !is_readable($cachedVersion)){
 
 		$providers = Flight::get('providers');
 
@@ -65,7 +65,7 @@
 		$strYears = '';
 		$startYear = $minYear;
 		while($startYear < $maxYear){
-			if ($startYear > $oldestYearToDisplay){ // skip the oldies
+			if ($startYear >= $oldestYearToDisplay){ // skip the oldies
 				$strYears .= '"'.$startYear.'",';
 			}
 			$startYear++;
@@ -89,7 +89,6 @@
 						$providerTotal += $increase;
 					}
 					if (((int)$y <= (int)$maxYear)){						
-                    //if (((int)$y < (int)$maxYear) || ($m <= ((int)date("m")+1))){						
 						$tsvText .= $provider['name'] . "\t" . $ym . "\t" . $m . "\t". $y . "\t" . $providerTotal . "\t". $increase ."\n";
 					}
 					$m++;
@@ -109,7 +108,7 @@
 		$years = array();
 		foreach(file($cachedVersion) as $lIdx => $line){
 			$lineParts = explode("\t", $line);
-			if (((int) $lineParts[3]) > $oldestYearToDisplay){
+			if (((int) $lineParts[3]) >= $oldestYearToDisplay){
 				$years[$lineParts[3]] = $lineParts[3];
 			}
 		}
