@@ -1,30 +1,6 @@
-[
-    {
-        "url": "http://www.metabolomicsworkbench.org",
-        "abbreviation": "metabolomicsworkbench",
-        "name": "Metabolomics Workbench",
-        "about": "The Metabolomics Workbench is a scalable and extensible informatics infrastructure which will serve as a national metabolomics resource. This is a companion to RCMRCs and is a part of the Common Fund Initiative in metabolomics. The Metabolomics Workbench will coordinate data activities of national and international metabolomics centers and initiatives, serve as a national data repository and develop a Workbench that will have data, query and analysis interfaces, and tools for interactive analysis and integration of metabolomics data. ",
-        "feed_url": "http://feeds.metabolomexchange.org/metabolomics-workbench.php"
-    },
-    {
-        "url": "http://www.ebi.ac.uk/metabolights/",
-        "abbreviation": "metaboLights",        
-        "name": "EBI - MetaboLights",
-        "about": "MetaboLights is a database for Metabolomics experiments and derived information. The database is cross-species, cross-technique and covers metabolite structures and their reference spectra as well as their biological roles, locations and concentrations, and experimental data from metabolic experiments.",
-        "feed_url": "http://feeds.metabolomexchange.org/metabolights.php"
-    },
-    {
-        "url": "http://gmd.mpimp-golm.mpg.de/",
-        "abbreviation": "golm",        
-        "name": "Golm Metabolome Database",
-        "about": "The Golm Metabolome Database (GMD) facilitates the search for and dissemination of reference mass spectra from biologically active metabolites quantified using gas chromatography (GC) coupled to mass spectrometry (MS). GC/MS profiling studies aiming at the identification of compounds from complex biological mixtures depend on the comparison of observed mass spectra and retention times with reference libraries such as the GMD. The GMD comprises mass spectra and retention time indices of pure reference substances and frequently observed mass spectral tags (MST: mass spectrum linked to chromatographic retention) of yet unidentified metabolites.",
-        "feed_url": "http://feeds.metabolomexchange.org/golm.php"
-    },
-    {
-        "url": "http://services.cbib.u-bordeaux2.fr/MERYB/home/home.php",
-        "abbreviation": "meryb",        
-        "name": "Metabolomic Repository Bordeaux",        
-        "about": "MeRy-B is a plant metabolomics platform allowing the storage and visualisation of Nuclear Magnetic Resonance (NMR) metabolic profiles from plants. It contains plant metabolites and unknown compounds lists with information about experimental conditions and metabolite concentrations from several plant species compiled from a thousand of curated annotated NMR profiles on various organs or tissues.",
-        "feed_url": "http://feeds.metabolomexchange.org/meryb.php"
-    }
-]
+{
+    "metabolomicsworkbench":"http://feeds.metabolomexchange.org/metabolomics-workbench.php",
+    "metaboLights":"http://feeds.metabolomexchange.org/metabolights.php",
+    "golm":"http://feeds.metabolomexchange.org/golm.php",
+    "meryb":"http://feeds.metabolomexchange.org/meryb.php"
+}

@@ -39,7 +39,8 @@
                         </ul>';
                 ?>                
                 <p><img src="/img/cosmos/fp7.png"> This project is funded through European Commission COSMOS Grant EC312941</p>
-                <p style="text-align: center;"><a style="color: white;" target="_blank" href="http://leidenuniv-lacdr-abs.github.io/metabolomexchange/">Github.io build: <!--BUILD--><a/></p>                            
+                <p class="dark_green" align="center">[ <a class="white" href="/documentation">API - documentation</a> | <a target="_blank" class="white" href="/ns/dcat">RDF (dcat)</a> ]</p>
+                <!--<p style="text-align: center;"><a style="color: white;" target="_blank" href="http://leidenuniv-lacdr-abs.github.io/metabolomexchange/">Github.io build: --><!--BUILD--><!--<a/></p>-->
             </footer>
         </div>
 

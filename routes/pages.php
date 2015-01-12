@@ -21,7 +21,7 @@ Flight::route('GET /', function(){
 	Flight::render('home.php', array(
 		'providerDatasets'=>Flight::get('database')->providerDatasets(),
 		'popularSearches'=>Flight::get('database')->popularSearches(),		
-		'datasets' => Flight::get('database')->find('datasets', array('sortby'=>'date','sort'=>'desc','limit'=>5)),
+		'datasets' => Flight::get('database')->find('datasets', array('sortby'=>'date','sort'=>'desc','limit'=>3)),
 		'providers' => Flight::get('providers')
 	));
 });
@@ -105,6 +105,11 @@ Flight::route('GET|POST /search', function(){
 		'recentSearches'=>(isset($_SESSION['savedSearches']) ? array_keys($_SESSION['savedSearches']) : array()),
 		'providers' => Flight::get('providers')
 	));
+});
+
+// GET::about us page
+Flight::route('GET /about', function(){
+	Flight::render('about.php');
 });
 
 // GET::documentation page

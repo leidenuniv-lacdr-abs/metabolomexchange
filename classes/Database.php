@@ -51,7 +51,8 @@ class Database {
 		$connectionAdminUrl	.= $this->config['mongodbHost'].':'.$this->config['mongodbPort'].'/'.$this->config['mongodbName'];
 		$connectionAdmin 	= new MongoClient($connectionAdminUrl);
 		$dbName				= $this->config['mongodbName'];		
-		$this->dbAdmin		= $connectionAdmin->$dbName;			
+		$this->dbAdmin		= $connectionAdmin->$dbName;
+
     }
 
 
@@ -192,20 +193,20 @@ class Database {
 							// parse feed
 							$providerFeedData = json_decode($providerFeed, true);
 
-							if (count($providerFeedData) >= 1){ // only run when at least 1 dataset is found
+							if (count($providerFeedData['datasets']) >= 1){ // only run when at least 1 dataset is found
 
 								$providerAccessions = array();
 
 								// parse it into individual dataset documents
-								foreach ($providerFeedData as $dIdx => $dataset){
+								foreach ($providerFeedData['datasets'] as $dIdx => $dataset){
 
 									// keep track of all provider accessions
 									$providerAccessions[] = $dataset['accession'];
 
-									$date = ''; // convert date to timestamp
+									$timestamp = ''; // convert date to timestamp
 									if (isset($dataset['date']) && $dataset['date'] != ''){
 										list($year, $month, $day) = explode('-', $dataset['date']);
-										$date = mktime(0, 0, 0, $month, $day, $year);
+										$timestamp = mktime(0, 0, 0, $month, $day, $year);
 									}
 
 									// build dataset
@@ -213,7 +214,7 @@ class Database {
 									$dataset['provider_uuid'] = $pIdx;
 									$dataset['uuid'] = base64_encode('ds'.$dataset['provider_uuid'].'_'.$dataset['accession']);																		
 									$dataset['json'] = json_encode($dataset);
-									$dataset['date'] = (string) $date;	// force to string, older versions of the php-mongo 
+									$dataset['timestamp'] = (string) $timestamp;	// force to string, older versions of the php-mongo 
 
 									// delete existing (if there)
 									$this->dbAdmin->datasets->remove(array("accession" => $dataset['accession'],"provider_uuid" => $pIdx));
@@ -352,17 +353,30 @@ class Database {
 		$providers = json_decode(file_get_contents($jsonUrl));
 
 		if (count($providers)){
-			foreach($providers as $pIdx => $provider){
+			foreach($providers as $providerShort => $providerURL){
 
-				$providerArray = array('active'=>1,'abbreviation'=>$provider->abbreviation ,'url'=>$provider->url,'name'=>$provider->name,'about'=>$provider->about,'feed_url'=>$provider->feed_url);
+				$providerFeed = file_get_contents($providerURL);				
+				$providerFeedData = json_decode($providerFeed, true);
+				if (count($providerFeedData['datasets']) >= 1){ // only run when at least 1 dataset is found
 
-				// see if it is already in there!
-				$existingProvider = $this->find('providers', array('filter'=>array("name"=>$provider->name)));
+					$providerArray = array(
+						'active'=>1,
+						'@context'=>'http://feeds.metabolomexchange.org/contexts/provider.jsonld',
+						'abbreviation'=>$providerShort,
+						'url'=>$providerFeedData['url'],
+						'name'=>$providerFeedData['provider'],
+						'about'=>$providerFeedData['description'],
+						'feed_url'=>$providerURL
+					);
 
-				if (isset($existingProvider['uuid'])){ // update
-					$this->dbAdmin->providers->update(array("uuid"=>$existingProvider['uuid']),array('$set'=>$providerArray));
-				} else { // create
-					$this->createProvider($providerArray);
+					// see if it is already in there!
+					$existingProvider = $this->find('providers', array('filter'=>array("abbreviation"=>$providerShort)));
+
+					if (isset($existingProvider['uuid'])){ // update
+						$this->dbAdmin->providers->update(array("uuid"=>$existingProvider['uuid']),array('$set'=>$providerArray));
+					} else { // create
+						$this->createProvider($providerArray);
+					}
 				}
 			}
 		}

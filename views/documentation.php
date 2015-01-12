@@ -40,7 +40,7 @@
 		$url = 'http://'.$_SERVER['HTTP_HOST'];
 
 		$documentation = array(
-			array('individuals'=>
+			array('API'=>
 				array(
 					'description'=>'
 						This api provides read-only access to all. Below you find a list with available calls to the API. In addition to the default 
