@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 
 ?>
 	<header>
-		<div style="float:right"><a target="_blank" href="/rss/by/provider_uuid/<?=$provider['uuid']?>/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>		
+		<div><a target="_blank" href="/rss/by/provider_uuid/<?=$provider['uuid']?>/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>		
 		<h2><?=$provider['name']?> dataset</h2>		
 	</header>
 	<article>
@@ -32,7 +32,7 @@
     <h3><?=$provider['name']?></h3>
         <p>
         	<?=$provider['about']?>
-        	<br /><br /><a class="dark_green" target="_blank" href="<?=$provider['url']?>">read more...</a>
+        	<br /><br /><a target="_blank" href="<?=$provider['url']?>">read more...</a>
        	</p>
     </aside>
 <?

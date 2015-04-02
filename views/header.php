@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,8 @@
  * limitations under the License.
  **/
 
+require_once('ViewHelper.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +33,7 @@
         <meta name="description" content="metabolomics data sharing">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.png">
+        <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/css/normalize.min.css">
         <link rel="stylesheet" href="/css/main.css">
 
@@ -39,21 +42,25 @@
         <script src="/js/vendor/dimple.v2.0.0.min.js"></script>        
     </head>
     <body OnLoad="document.searchform.search.focus();">
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <div class="header-container">
-            <header class="wrapper clearfix">
-                <a href="/"><img src="/img/metabolomeXchange.png"></a>
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/search">Search</a></li>
-                        <li><a href="/about">About</a></li>
-                    </ul>
-                </nav>                
-            </header>
-        </div>
-
-        <div class="main-container">            
-            <div class="main wrapper clearfix">                 
+        <div class="content">
+          <div class="header">
+            <div class="header_content">
+                <div class="logo">
+                  <a href="/#/">metabolome<font style="font-size: 1.6em; color: #2a7640">X</font>change</a>
+                </div>
+                <div class="menu"> 
+                  <div class="menu_item"><a href="/">Home</a></div>        
+                  <div class="menu_item"><a href="/search">Search</a></div>
+                  <div class="menu_item"><a href="/about">About</a></div>
+                </div>
+                <br class="clearBoth" />
+            </div>
+          </div>
+          <div class="search">
+            <div class="search_content">
+                <?=ViewHelper::displaySearchBox(isset($search) ? $search : '')?>              
+                <?=ViewHelper::displayRecentSearches(isset($recentSearches) ? $recentSearches : '')?> 
+                <br class="clearBoth" />
+            </div>
+          </div>          
+          <div class="content_main"> 

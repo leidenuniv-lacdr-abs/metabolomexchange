@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -77,7 +77,7 @@
         $rss .= "\t\t\t<link>".$guidLink."</link>";        
         $rss .= "\t\t\t<title>" . htmlspecialchars($dataset['title']) . "</title>";
         $rss .= "\t\t\t<description>" . htmlspecialchars($provider['name'] . ' entry by ' . $dataset['submitter'] . ': ' . $dataset['description']) . "</description>";
-        $rss .= "\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['date']) . "</pubDate>";
+        $rss .= "\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['timestamp']) . "</pubDate>";
         $rss .= "\t\t</item>";
     }
 

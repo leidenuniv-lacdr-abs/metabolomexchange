@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,8 @@
 	require_once('ViewHelper.php');
 
 ?>
-	<div style="margin-top:15px;">
-		<div style="float:right"><a target="_blank" href="/rss/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>		
+	<div>
+		<div ><a target="_blank" href="/rss/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>		
 		<h2>all <?=count($datasets)?> datasets</h2>		
 		<?=ViewHelper::displayDatasets($datasets, $providers, array('details'=>'list'))?>
 <?

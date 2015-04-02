@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,9 +28,7 @@
 
 ?>
 
-	<div style="float:right;"><?=ViewHelper::displayRSSFromSearchLink($search)?></div>	
-	<?=ViewHelper::displaySearchBox($search)?>
-	<?=ViewHelper::displayRecentSearches($recentSearches)?>	
+	<?=ViewHelper::displayRSSFromSearchLink($search)?>
 	<div style="margin-top:15px;">
 		<?php echo '<h4>'.$intDatasets.' dataset(s) found!</h4>'; ?>
 		<?=ViewHelper::displayDatasets($datasets, $providers, array('details'=>'list'))?>

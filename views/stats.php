@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,8 +41,8 @@
 		foreach (Flight::get('database')->find('datasets') as $dIdx => $dataset){
 
 			$provider = $providers[$dataset['provider_uuid']];
-			$month = date("m", $dataset['date']);
-			$year = date("Y", $dataset['date']);
+			$month = date("m", $dataset['timestamp']);
+			$year = date("Y", $dataset['timestamp']);
 			if ((int) $year < $oldestYearToDisplay){
 				$year = $oldestYearToDisplay;
 			}

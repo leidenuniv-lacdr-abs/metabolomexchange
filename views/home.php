@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,16 +18,9 @@
  **/
 
 	require_once('header.php');
-	require_once('ViewHelper.php');
+
 ?>
-	<header>
-		<div style="float:right"><a target="_blank" href="/rss/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>		
-		<h2>Latest datasets</h2>
-	</header>
-	<article>		
-		<?=ViewHelper::displayDatasets($datasets, $providers, array('details'=>'basic'))?>
-	</article>
-    <aside>
+
     	<?php
     		$rows = '';
     		$intTotalNumberOfDatasets = 0;
@@ -36,7 +29,7 @@
     			try {
     				$intTotalNumberOfDatasets += $intDatasets;
 					$rows .= '<tr><td>';
-					$rows .= '	<a class="white" href="/provider/'.$providers[$provider_uuid]['name'].'">'.$providers[$provider_uuid]['name'].'</a>';
+					$rows .= '	<a href="/provider/'.$providers[$provider_uuid]['name'].'">'.$providers[$provider_uuid]['name'].'</a>';
 					$rows .= '</td><td>&nbsp;</td></td><td>'.$intDatasets.'</td></tr>';
 				} catch (Exception $e) {
 					echo $e->getMessage();
@@ -48,13 +41,11 @@
     	<table>
 			<?=$rows?>
     	</table>
-    </aside>
-    <bside>
-		<?=ViewHelper::displaySearchBox()?>				    	
-		<?php if (count($popularSearches)) { ?>		
-			<?=ViewHelper::displayPopularSearches($popularSearches)?>	
-		<?php } ?>
-    </bside>
+
+
+		<div><a target="_blank" href="/rss/?limit=15"><img src="/img/feed-icon-28x28.png"></a></div>
+		<h2>Latest datasets</h2>
+		<?=ViewHelper::displayDatasets($datasets, $providers, array('details'=>'basic'))?>
 <?php 
 
 	require_once('footer.php');

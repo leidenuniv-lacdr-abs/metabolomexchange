@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,34 +24,12 @@ class ViewHelper {
 	}
 
 	public static function displaySearchBox($search = ''){
-		$searchBoxHtml = '<div style="text-align: left;">';
-		$searchBoxHtml .= '	<h2>Search</h2>';
-		$searchBoxHtml .= '	<div style="margin: 5px 0; max-width: 650px; width: 100%; border: thin solid white;">';
-		$searchBoxHtml .= '		<form action="/search" name="searchform" method="POST">';
-		$searchBoxHtml .= '			<input style="max-width: 250px; width: 75%;" type="text" name="search" value="'.$search.'">';
-		$searchBoxHtml .= '			<input type="submit" value="go" style="width: 40px;">';
-		$searchBoxHtml .= '		</form>';
-		$searchBoxHtml .= '	</div>';
-		$searchBoxHtml .= '</div>';		
 
+        $searchBoxHtml = '	<form action="/search" name="searchform" method="POST" class="form-wrapper cf">';
+        $searchBoxHtml .= '		<input type="text" name="search" value="'.$search.'" placeholder="Search here..." required>';
+        $searchBoxHtml .= '		<button type="submit">Search</button>';
+        $searchBoxHtml .= '	</form>';
 		return $searchBoxHtml;
-	}
-
-	public static function displayPopularSearches($popularSearches){
-
-		$popularSearchesHtml = '';
-
-		if (is_array($popularSearches) && count($popularSearches) > 2){
-
-			ksort($popularSearches); // sort them alfabetical
-			$popularSearchesHtml .= '<div style="margin: 10px;" id="tc">';
-			foreach ($popularSearches as $word => $count){
-				$popularSearchesHtml .= ' <a href="/search/?search=' . stripcslashes($word) . '" rel="'.$count.'">' . stripcslashes($word) . '</a>';
-			}
-			$popularSearchesHtml .= '</div>';
-		}
-
-		return $popularSearchesHtml;
 	}
 
 	public static function displayRecentSearches($resentSearches){
@@ -117,7 +95,7 @@ class ViewHelper {
 				$datasetsHtml .= '	<div style="width:250px; text-align:right; float: right;">';
 				$datasetsHtml .= '		<a href="/provider/' . $provider['name'] . '"><b>' . $provider['name'] . '</b></a>';
 				if (isset($dataset['date'])) {
-					$datasetsHtml .= '		<br /><small><i>' . date("D, d M Y", $dataset['date']) . '</i></small>';
+					$datasetsHtml .= '		<br /><small><i>' . date("D, d M Y", $dataset['timestamp']) . '</i></small>';
 				}
 				$datasetsHtml .= '		<br /><small>' . $dataset['accession'] . '</small>';
 				$datasetsHtml .= '	</div>';
@@ -140,7 +118,7 @@ class ViewHelper {
 				$datasetsHtml .= '	<div style="width:250px; text-align:right; float: right;">';
 				$datasetsHtml .= '		<a href="/provider/' . $provider['name'] . '"><b>' . $provider['name'] . '</b></a><br />';
 				if (isset($dataset['date'])) {
-					$datasetsHtml .= '		<small><i>' . date("D, d M Y", $dataset['date']) . '</i></small>';
+					$datasetsHtml .= '		<small><i>' . date("D, d M Y", $dataset['timestamp']) . '</i></small>';
 				}
 				$datasetsHtml .= '		<br /><small>' . $dataset['accession'] . '</small>';				
 				$datasetsHtml .= '	</div>';

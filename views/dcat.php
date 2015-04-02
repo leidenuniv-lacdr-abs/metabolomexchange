@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,7 +55,7 @@
 			a dcat:Dataset ;
 			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
 			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
-			dc:issued \"".date("Y-m-d", $dataset['date'])."^^xsd:date\" ;
+			dc:issued \"".date("Y-m-d", $dataset['timestamp'])."^^xsd:date\" ;
 			dc:landingPage <".$dataset['url']."> ;
 			dc:source \"".stripslashes($dataset['provider']['name'])."\" ;
 			foaf:name \"".stripslashes($dataset['submitter'])."\" ;

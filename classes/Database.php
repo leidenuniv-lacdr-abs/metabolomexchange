@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankeijer 
+ * Copyright 2014 Michael van Vliet (Leiden University), Thomas Hankemeier 
  * (Leiden University)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -364,7 +364,7 @@ class Database {
 						'@context'=>'http://feeds.metabolomexchange.org/contexts/provider.jsonld',
 						'abbreviation'=>$providerShort,
 						'url'=>$providerFeedData['url'],
-						'name'=>$providerFeedData['provider'],
+						'name'=>$providerFeedData['name'],
 						'about'=>$providerFeedData['description'],
 						'feed_url'=>$providerURL
 					);
