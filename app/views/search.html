@@ -1,0 +1,7 @@
+<div class="content_left_aligned">
+	<div ng-if="results.length > 0">
+	    <div ng-repeat="dataset in results | orderBy:sortField:true">
+	    	<div ng-include="'/view/dataset.html'"></div>
+	    <div>
+	</div>
+</div>

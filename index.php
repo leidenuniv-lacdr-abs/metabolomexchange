@@ -16,31 +16,44 @@
  * limitations under the License.
  **/
 
-header("Access-Control-Allow-Origin: *"); // required for all clients to connect
+require_once 'src/flight/Flight.php';
 
-// include config
-require_once 'classes/Config.php';
+Flight::route('GET /', function(){ 
+	Flight::render('home', array('datasets' => array(),'providers' => array()));
+});
 
-// add some logic
-require_once 'classes/flight/Flight.php';
-require_once 'classes/Auth.php';
-require_once 'classes/Database.php';
+// GET::rss
+Flight::route('GET /rss', function(){ 
+	Flight::render('rss', array('datasets' => array(),'providers' => array())); 
+});
 
-// init database connection
-Flight::set('database', new Database($config));
+// GET::rss by provider
+Flight::route('GET /rss/by/@in/@for', function($in, $for){
+	Flight::render('rss', array('in'=>$in, 'for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+});
 
-// prep $providers variable as it is used on every page
-Flight::set('providers', Flight::get('database')->jumpstartProviders());
+// GET::rss by search
+Flight::route('GET /rss/search/@for', function($for){
+	Flight::render('rss', array('for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+});	
 
-// filter paramaters
-Flight::set('params', Flight::get('database')->filterParameters($_REQUEST));
+// GET::stats page
+Flight::route('GET /stats', function(){ 
+	Flight::render('stats');
+});
 
-// define routes
-require_once('routes/pages.php');
-require_once('routes/rss.php');
-require_once('routes/admin.php');
-require_once('routes/api.php');
-require_once('routes/errors.php');
+Flight::route('GET /ns/dcat', function(){
+	Flight::render('dcat', array('datasets'=>array(), 'providers' => array()));
+});
+
+// unsupported browser
+Flight::route('GET /static', function(){ Flight::render('static'); });
+
+// catch the rest
+Flight::route('*', function(){
+	Flight::json(array('error'=>'page not found!'));	
+	exit();
+});
 
 // lift off
 Flight::start();

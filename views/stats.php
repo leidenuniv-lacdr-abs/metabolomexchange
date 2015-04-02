@@ -31,77 +31,78 @@
 	// read or produce cached version of the documentation
 	if (!is_readable($cachedVersion)){
 
-		$providers = Flight::get('providers');
+		if (isset($datasets) && count($datasets) >= 1){
 
-		//build stats
-		$minYear = date("Y");
-		$maxYear = date("Y");	
-		$providerDatasetsByYearMonth = array();
+			//build stats
+			$minYear = date("Y");
+			$maxYear = date("Y");	
+			$providerDatasetsByYearMonth = array();
 
-		foreach (Flight::get('database')->find('datasets') as $dIdx => $dataset){
+			foreach ($datasets as $dIdx => $dataset){
 
-			$provider = $providers[$dataset['provider_uuid']];
-			$month = date("m", $dataset['timestamp']);
-			$year = date("Y", $dataset['timestamp']);
-			if ((int) $year < $oldestYearToDisplay){
-				$year = $oldestYearToDisplay;
-			}
-			$ym = $year . '-' . $month;
-
-			// record oldest date (Y)
-			if ((int)$minYear > (int)$year) { $minYear = $year; }
-
-			if (!isset($providerDatasetsByYearMonth[$provider['name']])){
-				$providerDatasetsByYearMonth[$provider['name']] = array();
-			}
-
-			if (!isset($providerDatasetsByYearMonth[$provider['name']][$ym])){
-				$providerDatasetsByYearMonth[$provider['name']][$ym] = 0;
-			}		
-
-			$providerDatasetsByYearMonth[$provider['name']][$ym]++;
-
-		}
-		$strYears = '';
-		$startYear = $minYear;
-		while($startYear < $maxYear){
-			if ($startYear >= $oldestYearToDisplay){ // skip the oldies
-				$strYears .= '"'.$startYear.'",';
-			}
-			$startYear++;
-		}
-		$strYears .= '"'.$maxYear.'"';
-
-		// prep tsv
-		$tsvText = "provider\tyear/month\tmonth\tyear\tdatasets\tincrease\n";
-		foreach ($providers as $pIdx => $provider){
-
-			$providerTotal = 0;
-
-			$y = $minYear;
-			while ((int)$y <= (int)$maxYear){
-				$m = 1;
-				while($m <= 12){
-					$ym =  $y . '-' . (($m < 10) ? "0$m" : "$m");
-					$increase = 0;
-					if(isset($providerDatasetsByYearMonth[$provider['name']][$ym])){
-						$increase = $providerDatasetsByYearMonth[$provider['name']][$ym];
-						$providerTotal += $increase;
-					}
-					if (((int)$y <= (int)$maxYear)){						
-						$tsvText .= $provider['name'] . "\t" . $ym . "\t" . $m . "\t". $y . "\t" . $providerTotal . "\t". $increase ."\n";
-					}
-					$m++;
+				$provider = $providers[$dataset['provider_uuid']];
+				$month = date("m", $dataset['timestamp']);
+				$year = date("Y", $dataset['timestamp']);
+				if ((int) $year < $oldestYearToDisplay){
+					$year = $oldestYearToDisplay;
 				}
-				$y++;
-			}
-		}
+				$ym = $year . '-' . $month;
 
-		// cache documentation!
-		try {
-			file_put_contents($cachedVersion, $tsvText);
-		} catch (Exception $e) {
-			// was unable to cache this documents
+				// record oldest date (Y)
+				if ((int)$minYear > (int)$year) { $minYear = $year; }
+
+				if (!isset($providerDatasetsByYearMonth[$provider['name']])){
+					$providerDatasetsByYearMonth[$provider['name']] = array();
+				}
+
+				if (!isset($providerDatasetsByYearMonth[$provider['name']][$ym])){
+					$providerDatasetsByYearMonth[$provider['name']][$ym] = 0;
+				}		
+
+				$providerDatasetsByYearMonth[$provider['name']][$ym]++;
+
+			}
+			$strYears = '';
+			$startYear = $minYear;
+			while($startYear < $maxYear){
+				if ($startYear >= $oldestYearToDisplay){ // skip the oldies
+					$strYears .= '"'.$startYear.'",';
+				}
+				$startYear++;
+			}
+			$strYears .= '"'.$maxYear.'"';
+
+			// prep tsv
+			$tsvText = "provider\tyear/month\tmonth\tyear\tdatasets\tincrease\n";
+			foreach ($providers as $pIdx => $provider){
+
+				$providerTotal = 0;
+
+				$y = $minYear;
+				while ((int)$y <= (int)$maxYear){
+					$m = 1;
+					while($m <= 12){
+						$ym =  $y . '-' . (($m < 10) ? "0$m" : "$m");
+						$increase = 0;
+						if(isset($providerDatasetsByYearMonth[$provider['name']][$ym])){
+							$increase = $providerDatasetsByYearMonth[$provider['name']][$ym];
+							$providerTotal += $increase;
+						}
+						if (((int)$y <= (int)$maxYear)){						
+							$tsvText .= $provider['name'] . "\t" . $ym . "\t" . $m . "\t". $y . "\t" . $providerTotal . "\t". $increase ."\n";
+						}
+						$m++;
+					}
+					$y++;
+				}
+			}
+
+			// cache documentation!
+			try {
+				file_put_contents($cachedVersion, $tsvText);
+			} catch (Exception $e) {
+				// was unable to cache this documents
+			}
 		}
 	} else {
 		// read years from cached file
@@ -116,7 +117,6 @@
 	}		
 
 
-	require_once('header.php');
 ?>
 	<header>
 		<h2>Stats</h2>
@@ -350,6 +350,3 @@
 		</div>	
 
 	</div>
-<?
-	require_once('footer.php');
-?>

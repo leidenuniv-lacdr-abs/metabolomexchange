@@ -1,0 +1,13 @@
+<div class="content_left_aligned">
+	<h1>Providers</h1>
+	<div ng-repeat="provider in providers">
+		<strong>{{provider.name}} ({{provider.datasets.length}})</strong><br />
+		<a target="_blank" href="{{provider.url}}">{{provider.url}}</a>
+		<p>{{provider.description}}</p>
+		<div class="links">
+			<a class="link" href="/#/provider/{{provider.shortname}}">datasets</a>
+			<a class="link" target="_blank" href="http://metabolomexchange.org/rss/search/{{provider.shortname}}">rss</a>
+		</div>
+		<br class="clearBoth" />		
+	</div>
+</div>

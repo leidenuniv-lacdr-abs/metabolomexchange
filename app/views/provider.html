@@ -1,0 +1,16 @@
+<div class="content_left_aligned">
+	<div ng-repeat="provider in providers | filter: provider">
+		<strong>{{provider.name}} ({{provider.datasets.length}})</strong><br />
+		<a target="_blank" href="{{provider.url}}">{{provider.url}}</a>
+		<p>{{provider.description}}</p>
+		<div class="links">
+			<a class="link" target="_blank" href="http://metabolomexchange.org/rss/search/{{provider.shortname}}">rss</a>
+		</div>
+		<br class="clearBoth" />		
+		<div ng-if="provider.datasets.length > 0">
+		    <div ng-repeat="dataset in provider.datasets | orderBy:sortField:true">
+		    	<div ng-include="'/view/dataset.html'"></div>
+		    <div>
+		</div>	
+	</div>
+</div>
