@@ -41,7 +41,7 @@
       <div class="header">
         <div class="header_content">
             <div class="logo">
-              <a href="/#/">metabolome<font style="font-size: 1.6em; color: #2a7640">X</font>change</a>
+              <a href="/#/">metabolome<font style="font-size: 1.7em; color: #2a7640">X</font>change</a>
             </div>
             <div class="menu"> 
               <div class="menu_item"><a href="#/">Home</a></div>
@@ -53,8 +53,8 @@
       </div>
       <div class="search">
         <div class="search_content">
-          <form action="#/search" name="searchform" method="POST" class="form-wrapper cf">
-            <input type="text" name="search" value="" placeholder="Search here..." required>
+          <form ng-controller="SearchCtrl" action="#/search" name="searchform" method="POST" class="form-wrapper cf">
+            <input ng-focus="changeView('search')" ng-change="changeView('search')" type="text" name="search" value="" placeholder="Search here..." required>
             <button type="submit">Search</button>
           </form>
           <br class="clearBoth" />
