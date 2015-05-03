@@ -1,14 +1,4 @@
-<div class="dataset" ng-if="dataset">
-  <strong>{{dataset.title}}</strong><br />
-  <a target="_blank" href="{{dataset.url}}">{{dataset.url}}</a>
-  <p>{{dataset.description}}</p>
-  <p>{{dataset.submitter}} | {{dataset.date}} | <a target="_blank" href="{{dataset.url}}">{{dataset.accession}}</a></p>
-  <div ng-repeat="(label, meta) in dataset.meta">
-  	<div ng-show="meta | isArray">
-  		{{label}} :: {{meta}}<br />
-  	</div>
-  	<div ng-hide="meta | isArray">
-  		{{label}} :: {{meta}}<br />
-  	</div>  	
-  </div>
-<div>
+<div class="content_left_aligned">
+	<h1>{{dataset.title}}</h1>
+	<p class="big justify">{{dataset.description}}</p>
+</div>	

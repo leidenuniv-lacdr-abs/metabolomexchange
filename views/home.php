@@ -54,8 +54,8 @@
       <div class="search">
         <div class="search_content">
           <form ng-controller="SearchCtrl" action="#/search" name="searchform" method="POST" class="form-wrapper cf">
-            <input ng-focus="changeView('search')" ng-change="changeView('search')" type="text" name="search" value="" placeholder="Search here..." required>
-            <button type="submit">Search</button>
+            <input ng-focus="changeView('search')" ng-change="changeView('search')" ng-model="query" type="text" name="search" value="" placeholder="Search here..." required>
+            <button type="submit" disabled>Search</button>
           </form>
           <br class="clearBoth" />
         </div>

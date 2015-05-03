@@ -1,8 +1,10 @@
 <div class="content_left_aligned">
 	<h1>Search</h1>
-	<div ng-if="results.length > 0">
-	    <div ng-repeat="dataset in results | orderBy:sortField:true">
-	    	<div ng-include="'/view/dataset.html'"></div>
-	    <div>
+	<h2>Datasets ({{datasets.length}})</h2>
+	<div ng-repeat="dataset in datasets | orderBy:'-timestamp'" style="margin-bottom: 10px; border-bottom: thin solid green;">
+		<a href="#/dataset/{{dataset.provider}}/{{dataset.accession}}"><b>{{dataset.title}} <small>{{dataset.accession}}</small></b></a><br />
+		<a href="{{dataset.url}}">{{dataset.url}}</a><br />
+		<small ng-init="descriptionParts = dataset.description.split('. ')">{{descriptionParts[0]}}...</small><br />
+		<small>{{dataset.submitter}} - {{dataset.date}}</small>
 	</div>
 </div>
