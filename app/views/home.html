@@ -1,4 +1,113 @@
-<div class="content_left_aligned">
-	<h1>Home</h1>
-	<p class="big justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</div>	
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text darken-4"><i class="mdi-content-content-copy"></i></h2>
+            <h5 class="center">Browse</h5>
+            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <a href="" class="orange-text" ng-click="scrollTo('browse')">Learn more...</a>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text darken-4"><i class="mdi-action-settings"></i></h2>
+            <h5 class="center">API</h5>
+
+            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <a href="" class="orange-text" ng-click="scrollTo('api')">Learn more...</a>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text darken-4"><i class="mdi-notification-tap-and-play"></i></h2>
+            <h5 class="center">RSS</h5>
+
+            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <a href="" class="orange-text" ng-click="scrollTo('rss')">Learn more...</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <a name="browse"></a>
+  <div class="teal white-text" role="content">
+    <div class="container">
+      <div class="section">
+        <h3>Browse</h3>
+        <p>MetabolomeXchange contains datasets from {{providers.length}} different data providers.</p>        
+
+        <div class="row" ng-repeat="provider in providers | orderBy:'name'">
+          <div class="col s12 m12">
+            <div class="card teal darken-2">
+              <div class="card-content white-text">
+                <span class="card-title orange-text">{{provider.name}}</span>
+                <p>{{provider.description}}</p>
+              </div>
+              <div class="card-action">
+                <a target="_blank" href="{{provider.url}}">www</a>
+                <a href="#/provider/{{provider.shortname}}#top">datasets ({{provider.datasets.length}})</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/><br/><div class="divider"></div>
+        <a class="white-text" href="" ng-click="scrollTo('top')">back to top...</a>
+      </div>
+    </div>
+  </div>  
+
+  <div class="white" role="content">
+    <div class="container">
+      <div class="section">
+      </div>
+    </div>
+  </div>  
+
+
+  <a name="api"></a>
+  <div class="teal darken-4 white-text" role="content">
+    <div class="container">
+      <div class="section">
+        <h2>API</h2>
+        <i>http://api.metabolomexchange.org</i><br />
+
+        <br/><br/><div class="divider"></div>
+        <a class="white-text" href="" ng-click="scrollTo('top')">back to top...</a>
+      </div>
+    </div>
+  </div>  
+
+  <div class="white" role="content">
+    <div class="container">
+      <div class="section">
+      </div>
+    </div>
+  </div> 
+
+
+  <a name="rss"></a>
+  <div class="orange white-text" role="content">
+    <div class="container">
+      <div class="section">
+        <h2>RSS</h2>
+
+        <br/><br/><div class="divider"></div>
+        <a class="white-text" href="" ng-click="scrollTo('top')">back to top...</a>
+      </div>
+    </div>
+  </div>  
+
+  <div class="white" role="content">
+    <div class="container">
+      <div class="section">
+      </div>
+    </div>
+  </div>

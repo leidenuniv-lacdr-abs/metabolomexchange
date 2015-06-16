@@ -1,10 +1,8 @@
-<div class="content_left_aligned">
-	<h1>Search</h1>
-	<h2>Datasets ({{datasets.length}})</h2>
-	<div ng-repeat="dataset in datasets | orderBy:'-timestamp'" style="margin-bottom: 10px; border-bottom: thin solid green;">
-		<a href="#/dataset/{{dataset.provider}}/{{dataset.accession}}"><b>{{dataset.title}} <small>{{dataset.accession}}</small></b></a><br />
-		<a href="{{dataset.url}}">{{dataset.url}}</a><br />
-		<small ng-init="descriptionParts = dataset.description.split('. ')">{{descriptionParts[0]}}...</small><br />
-		<small>{{dataset.submitter}} - {{dataset.date}}</small>
-	</div>
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <div ng-if="query.length >= 1">
+            <strong>{{datasets.length}}</strong> datasets found matching <strong>{{query}}</strong></br>
+            <div ng-include="'/app/views/_datasets.html'"></div>
+        </div>
+    </div>
 </div>
