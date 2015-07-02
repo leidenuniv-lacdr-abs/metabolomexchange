@@ -19,7 +19,7 @@
 require_once 'src/flight/Flight.php';
 
 Flight::route('GET /', function(){ 
-	Flight::render('home', array('datasets' => array(),'providers' => array()));
+	Flight::redirect('/site');
 });
 
 // GET::rss

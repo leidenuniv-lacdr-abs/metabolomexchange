@@ -1,0 +1,44 @@
+<div class="section no-pad-bot" id="index-banner">
+	<div class="container">
+	  <div class="row center">
+	      <div class="white teal-text" role="content">
+	          <form class="col s12">
+	            <div class="row">
+	                <div class="input-field col s2"> </div>                                      
+	                <div class="input-field col s8">
+	                    <i class="mdi-action-search prefix black-text"></i>
+	                    <input id="search" ng-model="search" type="text" class="validate" ng-change="updateResults();" ng-value="search" placeholder="Search" autofocus>
+	                </div>  
+	                <div class="input-field col s2"> </div>                                      
+	            </div>	            
+	          </form>
+	      </div>
+	  </div>      
+	</div>
+</div>
+
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <strong>{{datasets.length}}</strong> datasets found matching "<strong>{{search}}</strong>"</br>
+		<div ng-repeat="dataset in datasets | orderBy:'-timestamp'" class="row">
+			<div class="col s12">
+			  <div class="card-panel">
+			  		<a class="right" href="#/provider/{{dataset.provider}}">{{dataset.provider}}</a>
+					<strong class="flow-text">{{dataset.title}}</strong>
+					<blockquote class="light">{{dataset.description}}</blockquote>
+					<div class="card-action">
+						{{dataset.date}} |
+						<a href="#/submitter/{{submitter}}" ng-click="scrollTo('top');" ng-repeat="submitter in dataset.submitter">{{submitter}}<span ng-show=" ! $last ">, </span></a> |
+						<a target="_blank" href="{{dataset.url}}">{{dataset.accession}}</a>
+					</div>
+					<pre>{{dataset.meta | json}}</pre>
+			  </div>
+			</div>
+		</div> 	
+        <div class="progress" ng-show="doneLoading !== '1'">
+		  <div class="indeterminate"></div>
+		</div>	                    		
+        <div style="min-height: 2000px;" ng-show="doneLoading !== '1'"></div>	                    				
+    </div>
+</div>
+

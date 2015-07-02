@@ -1,3 +1,22 @@
+    <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <div class="row center">
+          <div class="white teal-text" role="content">
+              <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s2"> </div>                                      
+                    <div class="input-field col s8">
+                        <i class="mdi-action-search prefix black-text"></i>
+                        <input id="icon_prefix" ng-model="search" type="text" class="validate" ng-change="updateResults();" placeholder="Search">
+                    </div>  
+                    <div class="input-field col s2"> </div>                                      
+                </div>
+              </form>
+          </div>
+      </div>      
+    </div>
+  </div>
+
   <div class="container">
     <div class="section">
 
@@ -7,7 +26,7 @@
           <div class="icon-block">
             <h2 class="center teal-text darken-4"><i class="mdi-content-content-copy"></i></h2>
             <h5 class="center">Browse</h5>
-            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p class="light">Datasets are stored in external data repositories independent of MetabolomeXchange. Use this browse option to zoom in om a specific data provider. It will give you direct access to the repository itself and the meta-data of the provider.</p>
             <a href="" class="orange-text" ng-click="scrollTo('browse')">Learn more...</a>
           </div>
         </div>
@@ -17,7 +36,7 @@
             <h2 class="center teal-text darken-4"><i class="mdi-action-settings"></i></h2>
             <h5 class="center">API</h5>
 
-            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p class="light">MetabolomeXchange has been designed to be light-weight and is therefore limited to act as a thin aggregation layer on top of the actual data providers. The core information aggregation is done server-side by the API. The API is the back-end for this site and the RSS.</p>
             <a href="" class="orange-text" ng-click="scrollTo('api')">Learn more...</a>
           </div>
         </div>
@@ -27,7 +46,7 @@
             <h2 class="center teal-text darken-4"><i class="mdi-notification-tap-and-play"></i></h2>
             <h5 class="center">RSS</h5>
 
-            <p class="light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p class="light">RSS has been around for many year and is still one of the preferred way to be kept up to date when in comes to information published on the internet. MetabolomeXchanage offers several ways te subscribe to new and/or updated datasets available in MetabolomeXchange.</p>
             <a href="" class="orange-text" ng-click="scrollTo('rss')">Learn more...</a>
           </div>
         </div>
@@ -64,23 +83,15 @@
     </div>
   </div>  
 
-  <div class="white" role="content">
-    <div class="container">
-      <div class="section">
-      </div>
-    </div>
-  </div>  
-
-
   <a name="api"></a>
-  <div class="teal darken-4 white-text" role="content">
+  <div class="white black-text" role="content">
     <div class="container">
       <div class="section">
         <h2>API</h2>
         <i>http://api.metabolomexchange.org</i><br />
 
         <br/><br/><div class="divider"></div>
-        <a class="white-text" href="" ng-click="scrollTo('top')">back to top...</a>
+        <a class="black-text" href="" ng-click="scrollTo('top')">back to top...</a>
       </div>
     </div>
   </div>  

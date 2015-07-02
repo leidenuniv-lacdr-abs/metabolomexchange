@@ -1,0 +1,36 @@
+/* Custom Stylesheet */
+body {
+	min-width: 380px;
+}
+
+footer.page-footer {
+	min-height: 200px;
+	margin: 0;
+}
+
+.input-field input[type=text]:focus {
+	border-bottom: thin solid #000;
+	box-shadow: none;
+	color: #ff9800;
+}
+
+.input-field input[type=text].valid {
+	border-bottom: thin solid #000;
+	box-shadow: none;
+	color: #ff9800;
+}
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+blockquote {
+	border-left: 5px solid #cdcdcd;
+}
