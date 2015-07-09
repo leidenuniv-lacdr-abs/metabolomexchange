@@ -55,6 +55,13 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
                 $location.hash('top');
                 $anchorScroll();
             }
+
+            if ($location.path() === '/search' && $scope.search.length <= 0){
+                $location.path('');
+                $location.replace();
+                $location.hash('top');
+                $anchorScroll();                
+            }            
                 
         }
 
@@ -71,7 +78,7 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
 
 mx.factory('mxApi', function($http) {
 
-    var useCache = false;
+    var useCache = true;
 
     return {
         getDatasets: function() { return $http.get('http://api.metabolomexchange.org/datasets', { cache: useCache }); },

@@ -7,7 +7,7 @@
                     <div class="input-field col s2"> </div>                                      
                     <div class="input-field col s8">
                         <i class="mdi-action-search prefix black-text"></i>
-                        <input id="icon_prefix" ng-model="search" type="text" class="validate" ng-change="updateResults();" placeholder="Search">
+                        <input id="search" ng-model="search" type="text" class="validate" ng-change="updateResults();" placeholder="Search" autofocus>
                     </div>  
                     <div class="input-field col s2"> </div>                                      
                 </div>
@@ -36,7 +36,7 @@
             <h2 class="center teal-text darken-4"><i class="mdi-action-settings"></i></h2>
             <h5 class="center">API</h5>
 
-            <p class="light">MetabolomeXchange has been designed to be light-weight and is therefore limited to act as a thin aggregation layer on top of the actual data providers. The core information aggregation is done server-side by the API. The API is the back-end for this site and the RSS.</p>
+            <p class="light">The primairy objective of MetabolomeXchange is to improve and encourage the exchange of Metabolomics data. One of the ways we do this is to provide an API (Application Programmable Interface). Providing a single point of entry when searching for Metabolomics data sets.</p>
             <a href="" class="orange-text" ng-click="scrollTo('api')">Learn more...</a>
           </div>
         </div>
@@ -60,7 +60,7 @@
   <div class="teal white-text" role="content">
     <div class="container">
       <div class="section">
-        <h3>Browse</h3>
+        <h2><i class="mdi-content-content-copy"></i> Browse</h2>
         <p>MetabolomeXchange contains datasets from {{providers.length}} different data providers.</p>        
 
         <div class="row" ng-repeat="provider in providers | orderBy:'name'">
@@ -87,9 +87,10 @@
   <div class="white black-text" role="content">
     <div class="container">
       <div class="section">
-        <h2>API</h2>
-        <i>http://api.metabolomexchange.org</i><br />
-
+        <h2><i class="mdi-action-settings"></i> API</h2>
+        <p class="dark">The primairy objective of MetabolomeXchange is to improve and encourage the exchange of Metabolomics data. One of the ways we do this is to provide an API (Application Programmable Interface). Providing a single point of entry when searching for Metabolomics data sets.</p>
+        <p class="light">Our service architecture has been designed to be light-weight. Therefore the API is limited to act as a thin aggregation layer on top of the actual data providers. The core information aggregation is done server-side, intelligently cached, and exposed by the API. The API is the back-end for this site and the RSS feeds.</p>
+        <p class="light">The API is versioned, by default you use the latest version available. If you want to use an older (still supported) version you can specify this when calling the API. Further documentation and the version specific information can be found at: <a target="_blank" href="http://api.metabolomexchange.org" class="light italic">http://api.metabolomexchange.org</a></p>
         <br/><br/><div class="divider"></div>
         <a class="black-text" href="" ng-click="scrollTo('top')">back to top...</a>
       </div>
@@ -108,8 +109,10 @@
   <div class="orange white-text" role="content">
     <div class="container">
       <div class="section">
-        <h2>RSS</h2>
-
+        <h2><i class="mdi-notification-tap-and-play"></i> RSS</h2>
+        <p class="dark">RSS has been around for many year and is still one of the preferred way to be kept up to date when in comes to information published on the internet. MetabolomeXchanage offers several ways te subscribe to new and/or updated datasets available in MetabolomeXchange.</p>        
+        <p class="light">RSS (all): <a target="_blank" href="/rss" class="light italic">/rss</a></p>
+        <p class="light">RSS by keyword(s): <a target="_blank" href="/rss/search/" class="light italic">/rss/search</a></p>
         <br/><br/><div class="divider"></div>
         <a class="white-text" href="" ng-click="scrollTo('top')">back to top...</a>
       </div>
