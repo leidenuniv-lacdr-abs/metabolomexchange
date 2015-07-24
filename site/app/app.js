@@ -15,6 +15,7 @@ var mx = angular.module('mx', ['ngRoute']);
  **/
 mx.config(function($routeProvider) {
     $routeProvider.
+    when('/about', { templateUrl: 'app/views/about.html', controller: 'MxController' }).
     when('/search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
     when('/search/:search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
     when('/provider/:search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
@@ -36,7 +37,7 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
         if ($routeParams.search){ $scope.search = $routeParams.search; }
         if (!$scope.search) { $scope.search = ''; }
 
-        if ($location.path() === '/'){ // load provider for homepage
+        if ($location.path() !== '/search'){ // load provider for pages other then the search page(s)
             mxApi.getProviders().then(function(d) { $scope.providers = d.data; }); 
         }
 
