@@ -21,8 +21,13 @@
 
 	// some handy functions
 	function datasetUrlFromDataset($dataset){
-		return urlencode($dataset['provider']['abbreviation']).":".urlencode($dataset['accession']);
+		return urlencode($dataset['accession']);
 	}	
+
+    $providerDetails = array();
+    foreach ($providers as $pIdx => $provider){
+        $providerDetails[$provider['shortname']] = $provider;
+    }	
 
 	$mxDCAT = '';
 
@@ -34,7 +39,7 @@
 
 	// add provider prefixes
 	foreach ($providers as $pIdx => $provider){
-		$mxDCAT .= "@prefix ".$provider['abbreviation'].": <http://".$_SERVER['HTTP_HOST']."/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
+		$mxDCAT .= "@prefix ".$provider['shortname'].": <http://".$_SERVER['HTTP_HOST']."/dataset/provider/".urlencode($provider['name'])."/accession/> .\n";
 	}
 
 	$mxDCAT .= "\n<http://".$_SERVER['HTTP_HOST']."/ns/dcat>\n"; // add dcat url
@@ -57,10 +62,14 @@
 			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
 			dc:issued \"".date("Y-m-d", $dataset['timestamp'])."^^xsd:date\" ;
 			dc:landingPage <".$dataset['url']."> ;
-			dc:source \"".stripslashes($dataset['provider']['name'])."\" ;
-			foaf:name \"".stripslashes($dataset['submitter'])."\" ;
-			dc:title \"".stripslashes($dataset['title'])."\" .\n
+			dc:source \"".stripslashes($providerDetails[$dataset['provider']]['name'])."\" ;
+			dc:title \"".stripslashes($dataset['title'])."\" ;
 		";
+
+		foreach ($dataset['submitter'] as $sIdx => $sumbitter){
+			$mxDCAT .= "	foaf:name \"".stripslashes($sumbitter)."\" ; ";
+		}
+		$mxDCAT .= ".\n ";
 	}
 
 	echo trim($mxDCAT);

@@ -20,11 +20,24 @@
 	/** 
 	 * show latest datasets as RSS
 	 */
-	header("Content-Type: application/rss+xml; charset=utf-8");
+	//header("Content-Type: application/rss+xml; charset=utf-8");
+
+    $providerDetails = array();
+    foreach ($providers as $pIdx => $provider){
+        $providerDetails[$provider['shortname']] = $provider;
+    }
+
+    $dates = array();
+    foreach ($datasets as $key => $row) {
+        $dates[$key]  = $row['timestamp'];
+    }
+
+    array_multisort($dates, SORT_DESC, $datasets);    
+
 	$rss = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
     $rss .= "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">";
     $rss .= "\t<channel>";
-    $rss .= "\t\t<ttl>10</ttl>";
+    $rss .= "\t\t<ttl>60</ttl>"; // refresh feed each 60min
     $rss .= "\t\t<image>";
     $rss .= "\t\t\t<url>http://metabolomexchange.org/img/metabolomeXchange.png</url>";
     $rss .= "\t\t\t<title>MetabolomeXchange</title>";
@@ -33,27 +46,11 @@
 
     $atomLinkUrl = 'http://'.$_SERVER['HTTP_HOST'].'/rss';  
     
-    if (isset($for) && isset($in)){
-
-        // specific rss, title and atom:link
-        if ($in == 'provider_uuid'){
-
-            // provider rss
-            $provider = $providers[$for];
-            $rss .= "\t\t<title>metabolomeXchange ".$provider['name']." RSS feed</title>";    
-
-        } else {
-            $rss .= "\t\t<title>metabolomeXchange RSS feed where ".$in." matches ".$for."</title>";
-        }
-        $rss .= "\t\t<atom:link href=\"".$atomLinkUrl."/by/".$in."/".$for."\" rel=\"self\" type=\"application/rss+xml\" />";        
-    } elseif (isset($for) && !isset($in)) {
-        
+    if (isset($for)) {
         // search enabled rss title and atom:link
         $rss .= "\t\t<title>metabolomeXchange RSS feed matching ".$for."</title>";    
         $rss .= "\t\t<atom:link href=\"".$atomLinkUrl."/search/".$for."\" rel=\"self\" type=\"application/rss+xml\" />";        
-    
     } else {
-
         // default title and atom:link
         $rss .= "\t\t<title>metabolomeXchange RSS feed</title>";
         $rss .= "\t\t<atom:link href=\"".$atomLinkUrl."\" rel=\"self\" type=\"application/rss+xml\" />";
@@ -64,21 +61,23 @@
     $rss .= "\t\t<language>en-us</language>";
     $rss .= "\t\t<copyright>Copyright (C) " . date("Y") . " metabolomeXchange.org</copyright>";
 
-    // correct for when result count == 1
-    if (isset($datasets['uuid'])){ $datasets = array($datasets); }
-
+    $rssFeedLimit = 15; // display only the 15 most recent entries
     foreach( $datasets as $dataset ) {
 
-        $provider = $providers[$dataset['provider_uuid']];            
-    	$guidLink = "http://" . htmlspecialchars($_SERVER['HTTP_HOST'] . "/dataset/provider/" . urlencode($provider['name']) . '/accession/' . urlencode($dataset['accession']));
+        if ($rssFeedLimit > 0){
+            $provider = $providerDetails[$dataset['provider']];            
+        	$guidLink = "http://" . htmlspecialchars($_SERVER['HTTP_HOST'] . "/dataset/provider/" . urlencode($provider['name']) . '/accession/' . urlencode($dataset['accession']));
 
-        $rss .= "\t\t<item>";
-        $rss .= "\t\t\t<guid>".$guidLink."</guid>";        
-        $rss .= "\t\t\t<link>".$guidLink."</link>";        
-        $rss .= "\t\t\t<title>" . htmlspecialchars($dataset['title']) . "</title>";
-        $rss .= "\t\t\t<description>" . htmlspecialchars($provider['name'] . ' entry by ' . $dataset['submitter'] . ': ' . $dataset['description']) . "</description>";
-        $rss .= "\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['timestamp']) . "</pubDate>";
-        $rss .= "\t\t</item>";
+            $rss .= "\t\t<item>";
+            $rss .= "\t\t\t<guid>".$guidLink."</guid>";        
+            $rss .= "\t\t\t<link>".$guidLink."</link>";        
+            $rss .= "\t\t\t<title>" . htmlspecialchars($dataset['title']) . "</title>";
+            $rss .= "\t\t\t<description>" . htmlspecialchars($provider['name'] . ' entry by ' . join(", ", $dataset['submitter']) . ': ' . $dataset['description']) . "</description>";
+            $rss .= "\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['timestamp']) . "</pubDate>";
+            $rss .= "\t\t</item>";
+
+            $rssFeedLimit--;
+        }
     }
 
     $rss .= "\t</channel>";

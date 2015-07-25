@@ -18,40 +18,47 @@
 
 require_once 'src/flight/Flight.php';
 
-Flight::route('GET /', function(){ 
-	Flight::redirect('/site');
-});
-
 // GET::rss
-Flight::route('GET /rss', function(){ 
-	Flight::render('rss', array('datasets' => array(),'providers' => array())); 
+Flight::route('GET /rss', function(){
+	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
+	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets'), true);
+	Flight::render('rss', array('providers' => $providers, 'datasets' => $datasets)); 
 });
 
 // GET::rss by provider
 Flight::route('GET /rss/by/@in/@for', function($in, $for){
-	Flight::render('rss', array('in'=>$in, 'for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+	// DISABLED, NOW RETURNS THE SAME AS A NORMAL SEARCH
+	//Flight::render('rss', array('in'=>$in, 'for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
+	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets/' . $for), true);
+	Flight::render('rss', array('for'=>$for, 'providers'=>$providers, 'datasets'=>$datasets) );
 });
 
 // GET::rss by search
 Flight::route('GET /rss/search/@for', function($for){
-	Flight::render('rss', array('for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
+	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets/' . $for), true);	
+	Flight::render('rss', array('for'=>$for, 'providers'=>$providers, 'datasets'=>$datasets) );
 });	
 
-// GET::stats page
-Flight::route('GET /stats', function(){ 
-	Flight::render('stats');
-});
-
 Flight::route('GET /ns/dcat', function(){
-	Flight::render('dcat', array('datasets'=>array(), 'providers' => array()));
+	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
+	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets'), true);	
+	Flight::render('dcat', array('datasets'=>$datasets, 'providers' => $providers));
 });
 
 // unsupported browser
 Flight::route('GET /static', function(){ Flight::render('static'); });
 
-// catch the rest
+// GET::stats page
+Flight::route('GET /stats', function(){ 
+	Flight::redirect('/site/#/stats');
+	exit();	
+});
+
+// catch the rest, send to homepage
 Flight::route('*', function(){
-	Flight::json(array('error'=>'page not found!'));	
+	Flight::redirect('/site');
 	exit();
 });
 
