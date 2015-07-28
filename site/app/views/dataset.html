@@ -1,0 +1,47 @@
+<div class="section no-pad-bot" id="index-banner">
+	<div class="container">
+	  <div class="row center">
+	      <div class="white teal-text" role="content">
+	          <form class="col s12">
+	            <div class="row">
+	                <div class="input-field col s2"> </div>                                      
+	                <div class="input-field col s8">
+	                    <i class="mdi-action-search prefix black-text"></i>
+	                    <input id="search" ng-model="search" type="text" class="validate" ng-change="updateResults();" ng-value="search" placeholder="Search" autofocus>
+	                </div>  
+	                <div class="input-field col s2"> </div>                                      
+	            </div>	            
+	          </form>
+	      </div>
+	  </div>      
+	</div>
+</div>
+
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+	  <div class="row">
+	  	<div class="col s12">
+	  		<strong class="flow-text">{{dataset.title}}</strong><br />
+			{{dataset.date}} |
+			<a href="#/search/{{submitter}}" ng-click="scrollTo('top');" ng-repeat-start="submitter in dataset.submitter">{{submitter}}</a><span ng-repeat-end="" ng-show=" ! $last ">, </span> |
+			<a href="#/search/{{dataset.provider}}"><span ng-repeat="provider in providers | filter:dataset.provider ">{{provider.name}}</span></a> |
+			<a target="_blank" href="{{dataset.url}}">{{dataset.accession}}</a>		  		
+	  	</div>
+	  </div>
+	  <div class="row">    	
+		<div class="col s8">		
+			<blockquote class="light">{{dataset.description}}</blockquote>							
+		</div>
+		<div class="col s4">
+			<div ng-repeat="(metadata_label, metadata_value) in dataset.meta">
+				<div ng-if="metadata_label != '@context'">
+					<strong>{{metadata_label | uppercase}}</strong>
+					<div ng-show="isArray(metadata_value)"><a href="#/search/{{value}}" ng-click="scrollTo('top');" ng-repeat-start="value in metadata_value">{{value}}</a><span ng-repeat-end="" ng-show=" ! $last ">, </span></div>
+					<div ng-hide="isArray(metadata_value)"><a href="#/search/{{metadata_value}}" ng-click="scrollTo('top');">{{metadata_value}}</a></div>
+				</div>
+			</div>				
+		</div>
+	  </div>
+	</div>
+</div>
+

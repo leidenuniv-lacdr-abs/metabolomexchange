@@ -39,7 +39,7 @@
     $rss .= "\t<channel>";
     $rss .= "\t\t<ttl>60</ttl>"; // refresh feed each 60min
     $rss .= "\t\t<image>";
-    $rss .= "\t\t\t<url>http://metabolomexchange.org/img/metabolomeXchange.png</url>";
+    $rss .= "\t\t\t<url>http://".$_SERVER['HTTP_HOST']."/site/img/metabolomeXchange.png</url>";
     $rss .= "\t\t\t<title>MetabolomeXchange</title>";
     $rss .= "\t\t\t<link>http://".$_SERVER['HTTP_HOST']."</link>";
     $rss .= "\t\t</image>";  

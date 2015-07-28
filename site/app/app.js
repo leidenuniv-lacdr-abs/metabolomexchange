@@ -18,8 +18,7 @@ mx.config(function($routeProvider) {
     when('/about', { templateUrl: 'app/views/about.html', controller: 'MxController' }).
     when('/search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
     when('/search/:search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
-    when('/provider/:search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).
-    when('/submitter/:search', { templateUrl: 'app/views/search.html', controller: 'MxController' }).    
+    when('/dataset/:provider/:accession', { templateUrl: 'app/views/dataset.html', controller: 'MxController' }).
     otherwise({ templateUrl: 'app/views/home.html', controller: 'MxController' });
 });
 /* ----------------------------*/
@@ -37,9 +36,10 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
         if ($routeParams.search){ $scope.search = $routeParams.search; }
         if (!$scope.search) { $scope.search = ''; }
 
-        if ($location.path() !== '/search'){ // load provider for pages other then the search page(s)
-            mxApi.getProviders().then(function(d) { $scope.providers = d.data; }); 
-        }
+        mxApi.getProviders().then(function(d) { $scope.providers = d.data; }); 
+
+        // add ability to test for array in view
+        $scope.isArray = angular.isArray;
 
         $scope.scrollTo = function(id) {
             $location.hash(id);
@@ -66,10 +66,14 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
                 
         }
 
-        if ($scope.search && $scope.search != ''){
-            mxApi.findDatasets($scope.search).then(function(d) { $scope.doneLoading = '1'; $scope.datasets = d.data; });
+        if ($location.path() !== '/dataset' && $routeParams.provider && $routeParams.accession){
+            mxApi.getDataset($routeParams.provider, $routeParams.accession).then(function(d) { $scope.dataset = d.data; });
         } else {
-            $scope.doneLoading = '1'; 
+            if ($scope.search && $scope.search != ''){
+                mxApi.findDatasets($scope.search).then(function(d) { $scope.doneLoading = '1'; $scope.datasets = d.data; });
+            } else {
+                $scope.doneLoading = '1'; 
+            }
         }
 
         // set focus to search

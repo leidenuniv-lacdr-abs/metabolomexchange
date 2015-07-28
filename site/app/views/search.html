@@ -19,19 +19,20 @@
 
 <div class="container">
     <div class="section no-pad-bot" id="index-banner">
-        <strong>{{datasets.length}}</strong> datasets found matching "<strong>{{search}}</strong>"</br>
+        <a class="right" target="_blank" href="/rss/search/{{search}}"><img src="/site/img/feed-icon-14x14.png" /></a>		
+		<span ng-show="doneLoading === '1'"><strong>{{datasets.length}}</strong> datasets found matching <strong>{{search}}</strong></span>
+    	</br>
 		<div ng-repeat="dataset in datasets | orderBy:'-timestamp'" class="row">
 			<div class="col s12">
 			  <div class="card-panel">
-			  		<a class="right" href="#/provider/{{dataset.provider}}">{{dataset.provider}}</a>
-					<strong class="flow-text">{{dataset.title}}</strong>
-					<blockquote class="light">{{dataset.description}}</blockquote>
-					<div class="card-action">
-						{{dataset.date}} |
-						<a href="#/submitter/{{submitter}}" ng-click="scrollTo('top');" ng-repeat="submitter in dataset.submitter">{{submitter}}<span ng-show=" ! $last ">, </span></a> |
-						<a target="_blank" href="{{dataset.url}}">{{dataset.accession}}</a>
-					</div>
-					<pre>{{dataset.meta | json}}</pre>
+				<strong class="flow-text"><a href="#/dataset/{{dataset.provider}}/{{dataset.accession}}" ng-click="scrollTo('top');" >{{dataset.title}}</a></strong>
+				<blockquote class="light">{{dataset.description}}</blockquote>
+				<div class="card-action">
+					{{dataset.date}} |
+					<a href="#/search/{{submitter}}" ng-click="scrollTo('top');" ng-repeat-start="submitter in dataset.submitter">{{submitter}}</a><span ng-repeat-end="" ng-show=" ! $last ">, </span> |
+					<a href="#/search/{{dataset.provider}}"><span ng-repeat="provider in providers | filter:dataset.provider ">{{provider.name}}</span></a> |
+					<a target="_blank" href="{{dataset.url}}">{{dataset.accession}}</a>
+				</div>
 			  </div>
 			</div>
 		</div> 	
