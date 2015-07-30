@@ -34,7 +34,7 @@
 		</div>
 		<div class="col s4">
 			<div ng-repeat="(metadata_label, metadata_value) in dataset.meta">
-				<div ng-if="metadata_label != '@context'">
+				<div ng-if="metadata_label !== '@context' && metadata_value !== ''">
 					<strong>{{metadata_label | uppercase}}</strong>
 					<div ng-show="isArray(metadata_value)"><a href="#/search/{{value}}" ng-click="scrollTo('top');" ng-repeat-start="value in metadata_value">{{value}}</a><span ng-repeat-end="" ng-show=" ! $last ">, </span></div>
 					<div ng-hide="isArray(metadata_value)"><a href="#/search/{{metadata_value}}" ng-click="scrollTo('top');">{{metadata_value}}</a></div>
