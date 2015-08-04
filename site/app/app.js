@@ -91,10 +91,8 @@ mx.factory('mxApi', function($http) {
         getProviders: function() { return $http.get('http://api.metabolomexchange.org/providers', { cache: useCache }); },
         getProvider: function(provider) { return $http.get('http://api.metabolomexchange.org/provider/' + provider, { cache: useCache }); },
         findDatasets: function(search) { 
-            console.log(search);
             var andMatch = search.replace(new RegExp(' ', 'g'), '&');
             var searchUrl = 'http://api.metabolomexchange.org/datasets/' + andMatch;
-            console.log("Search url: ", searchUrl);
             return $http.get(searchUrl, { cache: useCache }); 
         }
     };

@@ -27,8 +27,19 @@ Flight::route('GET /rss', function(){
 
 // GET::rss by provider
 Flight::route('GET /rss/by/@in/@for', function($in, $for){
+	
 	// DISABLED, NOW RETURNS THE SAME AS A NORMAL SEARCH
 	//Flight::render('rss', array('in'=>$in, 'for'=>$for, 'providers'=>array(), 'datasets'=>array()));
+
+	// DO NOT REMOVE!!! REQUIRED TO KEEP OLD RSS FEED LINK WORKING
+	if ($in == 'provider_uuid' && $for != ''){
+		if (strpos($for, 'UJJIC0gTWV0Y') >= 1 ){ $for = 'mtbls';	}
+		if (strpos($for, 'WV0YWJvbG9ta') >= 1 ){ $for = 'mwbs';		}
+		if (strpos($for, '29sbSBNZXRhY') >= 1 ){ $for = 'golm';		}
+		if (strpos($for, 'WV0YWJvbG9ta') >= 1 ){ $for = 'meryb';	}
+	} // DO NOT REMOVE!!! END
+
+
 	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
 	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets/' . $for), true);
 	Flight::render('rss', array('for'=>$for, 'providers'=>$providers, 'datasets'=>$datasets) );
