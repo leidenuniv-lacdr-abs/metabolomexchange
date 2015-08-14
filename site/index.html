@@ -24,6 +24,7 @@
   <a name="top"></a>
   <ul id="dropdown" class="dropdown-content">
     <li><a href="#/about">About</a></li>
+    <li><a href="" ng-click="scrollTo('stats')">Stats</a></li>
     <!--<li><a href="" ng-click="scrollTo('about')">Partners</a></li>-->
     <li class="divider"></li>
     <li><a target="_blank" href="http://www.cosmos-fp7.eu/">COSMOS</a></li>
@@ -119,6 +120,11 @@
     <script src="bower_components/materialize/dist/js/materialize.min.js"></script>    
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/nv.d3.js"></script> <!-- or use another assembly -->
+    <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+    <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css">    
 
     <script src="app/app.js"></script> 
 
