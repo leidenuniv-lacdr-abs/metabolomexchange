@@ -86,6 +86,7 @@ mx.factory('mxApi', function($http) {
     var useCache = true;
 
     return {
+        getStats: function() { return $http.get('http://api.metabolomexchange.org/stats', { cache: useCache }); },
         getDatasets: function() { return $http.get('http://api.metabolomexchange.org/datasets', { cache: useCache }); },
         getDataset: function(provider, accession) { return $http.get('http://api.metabolomexchange.org/provider/' + provider + '/' + accession, { cache: useCache }); },
         getProviders: function() { return $http.get('http://api.metabolomexchange.org/providers', { cache: useCache }); },
