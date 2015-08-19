@@ -32,23 +32,25 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
         $scope.doneLoading = '0'; 
         $scope.datasets = [];
 
-        $scope.options = {
-            chart: {
-                type: 'multiBarChart', height: 450, margin : { top: 20, right: 20, bottom: 60, left: 45 },
-                clipEdge: true, staggerLabels: true, transitionDuration: 500, stacked: true,
-                xAxis: { axisLabel: '', showMaxMin: false,
-                    tickFormat: function(d){ return d3.time.format('%m/%y')(new Date(d*1000)) }
-                },
-                yAxis: { axisLabel: '# publicly available datasets', axisLabelDistance: 40, showMaxMin: true,
-                    tickFormat: function(d){ return d3.format('03d')(d); }
-                },
-                tooltipContent: function(provider, ym, value) {
-                    return '<b>' + provider + '</b> shared <b>' + value + '</b> datasets by <b>' + ym + '</b>';
-                }
-            }
-        };
-
+        $scope.options = { };
         mxApi.getStats().then(function(d) {  
+
+            $scope.options = {
+                chart: {
+                    type: 'multiBarChart', height: 450, margin : { top: 20, right: 20, bottom: 60, left: 45 },
+                    clipEdge: true, staggerLabels: true, transitionDuration: 500, stacked: true,
+                    xAxis: { axisLabel: '', showMaxMin: false,
+                        tickFormat: function(d){ return d3.time.format('%m/%y')(new Date(d*1000)) }
+                    },
+                    yAxis: { axisLabel: '# publicly available datasets', axisLabelDistance: 40, showMaxMin: true,
+                        tickFormat: function(d){ return d3.format('03d')(d); }
+                    },
+                    tooltipContent: function(provider, ym, value) {
+                        return '<b>' + provider + '</b> shared <b>' + value + '</b> datasets by <b>' + ym + '</b>';
+                    }
+                }
+            };
+            
             $scope.stats = d.data;             
         }); 
 
@@ -107,7 +109,7 @@ mx.factory('mxApi', function($http) {
     return {
         getStats: function() { return $http.get('http://api.metabolomexchange.org/stats', { cache: useCache }); },
         getDatasets: function() { return $http.get('http://api.metabolomexchange.org/datasets', { cache: useCache }); },
-        getDataset: function(provider, accession) { return $http.get('http://api.metabolomexchange.org/provider/' + provider + '/' + accession, { cache: useCache }); },
+        getDataset: function(provider, accession) { return $http.get('http://api.metabolomexchange.org/dataset/' + provider + '/' + accession, { cache: useCache }); },
         getProviders: function() { return $http.get('http://api.metabolomexchange.org/providers', { cache: useCache }); },
         getProvider: function(provider) { return $http.get('http://api.metabolomexchange.org/provider/' + provider, { cache: useCache }); },
         findDatasets: function(search) { 

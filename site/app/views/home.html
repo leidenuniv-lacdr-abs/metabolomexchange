@@ -34,9 +34,9 @@
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center teal-text darken-4"><i class="mdi-notification-tap-and-play"></i></h2>
-            <h5 class="center">RSS</h5>
+            <h5 class="center">Subscribe</h5>
 
-            <p class="light">RSS has been around for many year and is still one of the preferred way to be kept up to date when in comes to information published on the internet. MetabolomeXchanage offers several ways te subscribe to new and/or updated datasets available in MetabolomeXchange.</p>
+            <p class="light">RSS is used to allow users to be notified of new or updated datasets. On serveral pages you will see the orange RSS icon that allows you to subscribe to the feed using your own preferred reader.</p>
             <a href="" class="orange-text" ng-click="scrollTo('rss')">Learn more...</a>
           </div>
         </div>
@@ -73,6 +73,7 @@
               </div>
               <div class="card-action">
                 <a target="_blank" href="{{provider.url}}">www</a>
+                <a target="_blank" href="/rss/search/{{provider.shortname}}">rss</a>
                 <a href="#/search/{{provider.shortname}}#top">datasets ({{stats.providerDatasets[provider.shortname]}})</a>
               </div>
             </div>
@@ -109,10 +110,8 @@
   <div class="orange white-text" role="content">
     <div class="container">
       <div class="section">
-        <h2><i class="mdi-notification-tap-and-play"></i> RSS</h2>
-        <p class="dark">RSS has been around for many year and is still one of the preferred way to be kept up to date when in comes to information published on the internet. MetabolomeXchanage offers several ways te subscribe to new and/or updated datasets available in MetabolomeXchange.</p>        
-        <p class="light">RSS (all): <a target="_blank" href="/rss" class="light italic">/rss</a></p>
-        <p class="light">RSS by keyword(s): <a target="_blank" href="/rss/search/" class="light italic">/rss/search</a></p>
+        <h2><i class="mdi-notification-tap-and-play"></i> Subscribe</h2>
+        <p class="dark">MetabolomeXchange uses RSS to allow users to be notified of new or updated datasets. On serveral pages you will see the orange RSS icon that allows you to subscribe to the feed using your own preferred reader. In the top-right corner of this page you will find the link to subscribe to all updates. If you search a smaller icon will appear, just above the search results, that allows you to recieve only updates matching that search term. The last option it to subscribe to only updates from a specific provider, the link to this feed is listed in the overview of the providers.</p>        
         <br/><br/><div class="divider"></div>
         <a class="white-text right" href="" ng-click="scrollTo('top')">back to top...</a><br />
       </div>
