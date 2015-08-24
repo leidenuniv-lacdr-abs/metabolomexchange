@@ -28,14 +28,14 @@ require_once 'src/phpSitemap/sitemaps.inc.php';
 
 	$sitemap->addLocation(new \sitemaps\Location($baseUrl, time(), \sitemaps\Location::FREQ_DAILY, \sitemaps\Location::PRIO_FULL));
 	$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/search', time(), \sitemaps\Location::FREQ_DAILY, \sitemaps\Location::PRIO_FULL));			
-	$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/about', time(), \sitemaps\Location::FREQ_DAILY, \sitemaps\Location::PRIO_FULL));
+	$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/about', time(), \sitemaps\Location::FREQ_WEEKLY, \sitemaps\Location::PRIO_FULL));
 
 	foreach ($providers as $pIdx => $p){
-		$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/search/' . $p['shortname'], time(), \sitemaps\Location::FREQ_DAILY, \sitemaps\Location::PRIO_HIGH));
+		$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/search/' . $p['shortname'], time(), \sitemaps\Location::FREQ_WEEKLY, \sitemaps\Location::PRIO_HIGH));
 	}
 
 	foreach ($datasets as $dIdx => $d){
-		$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/dataset/' . $d['provider'] . '/' . $d['accession'], time(), \sitemaps\Location::FREQ_DAILY, \sitemaps\Location::PRIO_MEDIUM));
+		$sitemap->addLocation(new \sitemaps\Location($baseUrl . '/site/#/dataset/' . $d['provider'] . '/' . $d['accession'], time(), \sitemaps\Location::FREQ_WEEKLY, \sitemaps\Location::PRIO_MEDIUM));
 	}			
 
 	// Write sitemap-content into file
