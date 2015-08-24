@@ -67,6 +67,13 @@ Flight::route('GET /stats', function(){
 	exit();	
 });
 
+// GET::sitemap page
+Flight::route('GET /sitemap', function(){ 
+	$providers = json_decode(file_get_contents('http://api.metabolomexchange.org/providers'), true);
+	$datasets = json_decode(file_get_contents('http://api.metabolomexchange.org/datasets'), true);		
+	Flight::render('sitemap', array('datasets'=>$datasets, 'providers' => $providers));	
+});
+
 // catch the rest, send to homepage
 Flight::route('*', function(){
 	Flight::redirect('/site');
