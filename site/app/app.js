@@ -89,6 +89,7 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
 
         if ($location.path() !== '/dataset' && $routeParams.provider && $routeParams.accession){
             mxApi.getDataset($routeParams.provider, $routeParams.accession).then(function(d) { $scope.dataset = d.data; });
+            $scope.doneLoading = '1';
         } else {
             if ($scope.search && $scope.search != ''){
                 mxApi.findDatasets($scope.search).then(function(d) { $scope.doneLoading = '1'; $scope.datasets = d.data; });
