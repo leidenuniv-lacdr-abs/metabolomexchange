@@ -68,7 +68,7 @@
         if ($rssFeedLimit > 0){
 
             $provider = $providerDetails[$dataset['provider']];            
-        	$guidLink = "http://" . htmlspecialchars($_SERVER['HTTP_HOST'] . "/dataset/" . urlencode($provider['shortname']) . '/' . urlencode($dataset['accession']));
+        	$guidLink = "http://" . htmlspecialchars($_SERVER['HTTP_HOST'] . "/site/#/dataset/" . urlencode($provider['shortname']) . '/' . urlencode($dataset['accession']));
 
             $rss .= "\n\t\t<item>";
             $rss .= "\n\t\t\t<guid>".$guidLink."</guid>";        
