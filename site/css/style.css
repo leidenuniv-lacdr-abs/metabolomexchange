@@ -34,3 +34,7 @@ footer.page-footer {
 blockquote {
 	border-left: 5px solid #cdcdcd;
 }
+
+.parallax-container {
+  height: 250px;
+}

@@ -32,28 +32,6 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
         $scope.doneLoading = '0'; 
         $scope.datasets = [];
 
-        $scope.options = { };
-        mxApi.getStats().then(function(d) {  
-
-            $scope.options = {
-                chart: {
-                    type: 'multiBarChart', height: 450, margin : { top: 20, right: 20, bottom: 60, left: 45 },
-                    clipEdge: true, staggerLabels: true, transitionDuration: 500, stacked: true,
-                    xAxis: { axisLabel: '', showMaxMin: false,
-                        tickFormat: function(d){ return d3.time.format('%m/%y')(new Date(d*1000)) }
-                    },
-                    yAxis: { axisLabel: '# publicly available datasets', axisLabelDistance: 40, showMaxMin: true,
-                        tickFormat: function(d){ return d3.format('03d')(d); }
-                    },
-                    tooltipContent: function(provider, ym, value) {
-                        return '<b>' + provider + '</b> shared <b>' + value + '</b> datasets by <b>' + ym + '</b>';
-                    }
-                }
-            };
-            
-            $scope.stats = d.data;             
-        }); 
-
         if ($routeParams.search){ $scope.search = $routeParams.search; }
         if (!$scope.search) { $scope.search = ''; }
 
@@ -102,6 +80,33 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
 
         // set focus to search
         if (document.getElementById("search")) { document.getElementById("search").focus(); } 
+
+        $(document).ready(function(){
+            $('.tooltipped').tooltip({delay: 50});
+            $('.parallax').parallax();
+
+            mxApi.getStats().then(function(d) {  
+
+                $scope.options = {
+                    chart: {
+                        type: 'multiBarChart', height: 450, margin : { top: 20, right: 20, bottom: 60, left: 45 },
+                        clipEdge: true, staggerLabels: true, transitionDuration: 500, stacked: true,
+                        xAxis: { axisLabel: '', showMaxMin: false,
+                            tickFormat: function(d){ return d3.time.format('%m/%y')(new Date(d*1000)) }
+                        },
+                        yAxis: { axisLabel: '# publicly available datasets', axisLabelDistance: 40, showMaxMin: true,
+                            tickFormat: function(d){ return d3.format('03d')(d); }
+                        },
+                        tooltipContent: function(provider, ym, value) {
+                            return '<b>' + provider + '</b> shared <b>' + value + '</b> datasets by <b>' + ym + '</b>';
+                        }
+                    }
+                };
+                
+                $scope.stats = d.data;             
+            });
+
+        });        
     }
 ]);
 
