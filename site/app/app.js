@@ -65,18 +65,18 @@ mx.controller('MxController', ['$scope', '$routeParams', '$location', '$anchorSc
                 
         }
 
-        if ($location.path() !== '/dataset' && $routeParams.provider && $routeParams.accession){
+        //if ($location.path() !== '/dataset' && $routeParams.provider && $routeParams.accession){
             mxApi.getDataset($routeParams.provider, $routeParams.accession).then(function(d) { 
                 $scope.dataset = d.data; 
                 $scope.doneLoading = '1';
             });
-        } else {
+        //} else {
             if ($scope.search && $scope.search != ''){
                 mxApi.findDatasets($scope.search).then(function(d) { $scope.doneLoading = '1'; $scope.datasets = d.data; });
             } else {
                 $scope.doneLoading = '1'; 
             }
-        }
+        //}
 
         // set focus to search
         if (document.getElementById("search")) { document.getElementById("search").focus(); } 
