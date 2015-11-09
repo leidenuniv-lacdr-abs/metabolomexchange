@@ -27,7 +27,7 @@
 			<div class="col s12">
 			  <div class="card-panel">
 				<strong class="flow-text"><a href="#/dataset/{{dataset.provider}}/{{dataset.accession}}" ng-click="scrollTo('top');" >{{dataset.title}}</a></strong>
-				<blockquote class="light">{{dataset.description}}</blockquote>
+				<blockquote class="light">{{dataset.description[0]}}</blockquote>
 				<div class="card-action">
 					{{dataset.date}} |
 					<a href="#/search/{{submitter}}" ng-click="scrollTo('top');" ng-repeat-start="submitter in dataset.submitter">{{submitter}}</a><span ng-repeat-end="" ng-show=" ! $last ">, </span> |

@@ -30,9 +30,16 @@
 	  </div>
 	  <div ng-show="doneLoading === '1'" class="row">    	
 		<div class="col s8">		
-			<blockquote class="light">{{dataset.description}}</blockquote>							
+			<blockquote class="light"><div ng-repeat="description in dataset.description">{{description}}<br /><br /></div></blockquote>							
 		</div>
 		<div class="col s4">
+			<strong ng-if="dataset.publications">PUBLICATIONS</strong>
+			<div ng-repeat="publication in dataset.publications">
+				{{publication.title}}<br/>
+				<a ng-if="publication.doi" target="_blank" href="http://dx.doi.org/{{publication.doi}}">http://dx.doi.org/{{publication.doi}}<br /></a>
+				<a ng-if="publication.pubmed" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/{{publication.pubmed.replace('PMID:','')}}">http://www.ncbi.nlm.nih.gov/pubmed/{{publication.pubmed.replace('PMID:','')}}<br /></a>
+			</div>
+			<br />
 			<div ng-repeat="(metadata_label, metadata_value) in dataset.meta">
 				<div ng-if="metadata_label !== '@context' && metadata_value !== ''">
 					<strong>{{metadata_label | uppercase}}</strong>

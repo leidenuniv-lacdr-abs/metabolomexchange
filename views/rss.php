@@ -27,14 +27,6 @@
         $providerDetails[$provider['shortname']] = $provider;
     }
 
-    // DATASETS ARE NOW ALWAYS SORTED BY TIMESTAMP, NO NEED TO RE_SORT
-    // $dates = array();
-    // foreach ($datasets as $key => $row) {
-    //     $dates[$key]  = $row['timestamp'];
-    // }
-
-    // array_multisort($dates, SORT_DESC, $datasets);    
-
 	$rss = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
     $rss .= "\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">";
     $rss .= "\n\t<channel>";
@@ -74,7 +66,7 @@
             $rss .= "\n\t\t\t<guid>".$guidLink."</guid>";        
             $rss .= "\n\t\t\t<link>".$guidLink."</link>";        
             $rss .= "\n\t\t\t<title>" . htmlspecialchars($dataset['title']) . "</title>";
-            $rss .= "\n\t\t\t<description>&lt;a target=\"_blank\" href=\"" . htmlspecialchars($dataset['url']) . '"&gt;' . htmlspecialchars($provider['name']) . ' entry by ' . htmlspecialchars(join(", ", $dataset['submitter'])) . '&lt;/a&gt;: ' . htmlspecialchars($dataset['description']) . "</description>";
+            $rss .= "\n\t\t\t<description>&lt;a target=\"_blank\" href=\"" . htmlspecialchars($dataset['url']) . '"&gt;' . htmlspecialchars($provider['name']) . ' entry by ' . htmlspecialchars(join(", ", $dataset['submitter'])) . '&lt;/a&gt;: ' . htmlspecialchars(current($dataset['description'])) . "</description>";
             $rss .= "\n\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['timestamp']) . "</pubDate>";
             $rss .= "\n\t\t</item>";
 
