@@ -58,7 +58,7 @@
 	foreach ($datasets as $idx => $dataset){
 		$mxDCAT .= "\n".datasetUrlFromDataset($dataset)."
 			a dcat:Dataset ;
-			dc:description \"\"\"".stripslashes($dataset['description'])."\"\"\" ;
+			dc:description \"\"\"".stripslashes($dataset['description'][0])."\"\"\" ;
 			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
 			dc:issued \"".date("Y-m-d", $dataset['timestamp'])."^^xsd:date\" ;
 			dc:landingPage <".$dataset['url']."> ;
