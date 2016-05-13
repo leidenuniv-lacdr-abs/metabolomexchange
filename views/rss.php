@@ -57,6 +57,27 @@
     $rssFeedLimit = 15; // display only the 15 most recent entries
     foreach( $datasets as $dataset ) {
 
+        $publications = '';
+        if (isset($dataset['publications']) && is_array($dataset['publications'])){
+            foreach ($dataset['publications'] as $idxPub => $publication){
+                if (isset($publication['doi']) && $publication['doi'] != ''){
+                    $pubUrl = 'http://dx.doi.org/' . $publication['doi'];
+                    $publications .= "&lt;a target=\"_blank\" href=\"" . htmlspecialchars($pubUrl) . '"&gt;doi:' . htmlspecialchars($publication['doi']) . '&lt;/a&gt;';
+                }
+                if (isset($publication['pubmed']) && $publication['pubmed'] != ''){
+                    if (isset($publication['doi']) && $publication['doi'] != ''){
+                        $publications .= ", ";
+                    }
+                    $publication['pubmed'] = str_replace('PMID:', '', $publication['pubmed']);
+                    $pubUrl = 'http://www.ncbi.nlm.nih.gov/pubmed/' . $publication['pubmed'];
+                    $publications .= "&lt;a target=\"_blank\" href=\"" . htmlspecialchars($pubUrl) . '"&gt;pubmed:' . htmlspecialchars($publication['pubmed']) . '&lt;/a&gt;';
+                }                
+            }
+        }
+        if ($publications != ''){
+            $publications = "(".$publications.")";
+        }
+
         if ($rssFeedLimit > 0){
 
             $provider = $providerDetails[$dataset['provider']];            
@@ -66,7 +87,7 @@
             $rss .= "\n\t\t\t<guid>".$guidLink."</guid>";        
             $rss .= "\n\t\t\t<link>".$guidLink."</link>";        
             $rss .= "\n\t\t\t<title>" . htmlspecialchars($dataset['title']) . "</title>";
-            $rss .= "\n\t\t\t<description>&lt;a target=\"_blank\" href=\"" . htmlspecialchars($dataset['url']) . '"&gt;' . htmlspecialchars($provider['name']) . ' entry by ' . htmlspecialchars(join(", ", $dataset['submitter'])) . '&lt;/a&gt;: ' . htmlspecialchars(current($dataset['description'])) . "</description>";
+            $rss .= "\n\t\t\t<description>&lt;a target=\"_blank\" href=\"" . htmlspecialchars($dataset['url']) . '"&gt;' . htmlspecialchars($provider['name']) . ' entry by ' . htmlspecialchars(join(", ", $dataset['submitter'])) . '&lt;/a&gt; ' . $publications . ': ' . htmlspecialchars(current($dataset['description'])) . "</description>";
             $rss .= "\n\t\t\t<pubDate>" . date("D, d M Y H:i:s O", $dataset['timestamp']) . "</pubDate>";
             $rss .= "\n\t\t</item>";
 

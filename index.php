@@ -74,6 +74,14 @@ Flight::route('GET /sitemap', function(){
 	Flight::render('sitemap', array('datasets'=>$datasets, 'providers' => $providers));	
 });
 
+
+// GET::csv
+Flight::route('GET /tab', function(){
+	$stats = json_decode(file_get_contents('http://api.metabolomexchange.org/stats'), true);
+	Flight::render('tab', array('stats' => $stats)); 
+});
+
+
 // catch the rest, send to homepage
 Flight::route('*', function(){
 	Flight::redirect('/site');
