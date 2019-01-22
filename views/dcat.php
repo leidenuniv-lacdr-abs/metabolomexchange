@@ -67,7 +67,7 @@
 		";
 
 		foreach ($dataset['submitter'] as $sIdx => $sumbitter){
-			$mxDCAT .= "	foaf:name \"".stripslashes($sumbitter)."\" ; ";
+			$mxDCAT .= "	dc:creator [ foaf:name \"".stripslashes($sumbitter)."\" ] ; ";
 		}
 		$mxDCAT .= ".\n ";
 	}
