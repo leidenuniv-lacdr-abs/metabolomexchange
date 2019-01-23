@@ -43,7 +43,7 @@
 	}
 
 	$mxDCAT .= "\n<http://".$_SERVER['HTTP_HOST']."/ns/dcat>\n"; // add dcat url
-	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."^^xsd:date\" ;\n"; // add date modified
+	$mxDCAT .= "\tdc:modified \"".date("Y-m-d")."\"^^xsd:date ;\n"; // add date modified
 	$mxDCAT .= "\tfoaf:homepage \"<http://".$_SERVER['HTTP_HOST'].">\" ;\n"; // add homepage metabolomexchange
 
 	// add datasets as reference list
@@ -60,14 +60,14 @@
 			a dcat:Dataset ;
 			dc:description \"\"\"".stripslashes($dataset['description'][0])."\"\"\" ;
 			dc:identifier \"".str_replace("http://".$_SERVER['HTTP_HOST']."/", '', datasetUrlFromDataset($dataset))."\" ;
-			dc:issued \"".date("Y-m-d", $dataset['timestamp'])."^^xsd:date\" ;
+			dc:issued \"".date("Y-m-d", $dataset['timestamp'])."\"^^xsd:date ;
 			dc:landingPage <".$dataset['url']."> ;
 			dc:source \"".stripslashes($providerDetails[$dataset['provider']]['name'])."\" ;
 			dc:title \"".stripslashes($dataset['title'])."\" ;
 		";
 
 		foreach ($dataset['submitter'] as $sIdx => $sumbitter){
-			$mxDCAT .= "	foaf:name \"".stripslashes($sumbitter)."\" ; ";
+			$mxDCAT .= "	dc:creator [ foaf:name \"".stripslashes($sumbitter)."\" ] ; ";
 		}
 		$mxDCAT .= ".\n ";
 	}
